@@ -197,16 +197,17 @@ select:hover {
   <div class="container">
     <!-- LEFT COLUMN -->
     <div>
-      <div class="section">
-        <h2>Select Electricity Rate</h2>
-        <select id="rateSelect">
-          <option>Choose Standard Rate</option>
-          <option>California - 26.84¢</option>
-          <option>Texas - 12.09¢</option>
-          <option>U.S. Average - 12.89¢</option>
-        </select>
-        <input type="number" id="rateInput" placeholder="Or enter your rate ($/kWh)" />
-      </div>
+<div class="section">
+  <h2>Select Electricity Rate</h2>
+  <label for="rateSelect">Choose Electricity Rate ($/kWh)</label>
+  <select id="rateSelect">
+    <option value="">-- Select a Standard Rate --</option>
+    <option value="0.27">California - $0.27</option>
+    <option value="0.12">Texas - $0.12</option>
+    <option value="0.13">U.S. Average - $0.13</option>
+  </select>
+  <input type="number" id="rateInput" step="0.01" placeholder="Or enter your rate ($/kWh)" />
+</div>
 
       <div class="section">
         <h2>Add Device Usage</h2>
@@ -464,7 +465,7 @@ function updatePieChart() {
 
         const text = `$${total.toFixed(2)}`;
         const textX = Math.round((width - ctx.measureText(text).width) / 2);
-        const textY = height / 2 - 10;
+        const textY = height / 2 - 25;
         ctx.fillText(text, textX, textY);
 
         ctx.font = `14px Inter`;
@@ -479,5 +480,41 @@ function updatePieChart() {
 }
 
   </script>
+  
+  <!-- Your existing script block -->
+<script>
+  // ... all your existing code like deviceList[], chart setup, etc ...
+</script>
+
+<!-- 🧠 VoltBot chat logic -->
+<script>
+async function askVoltBot() {
+  const responseBox = document.querySelector('.section:last-child div');
+  const input = document.querySelector('.section:last-child input');
+  const question = input.value.trim();
+  if (!question && deviceList.length === 0) return;
+
+  responseBox.innerHTML += `<p><strong>You:</strong> ${question || 'Analyze my usage.'}</p>`;
+
+  const res = await fetch('/get-advice', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ devices: deviceList })
+  });
+
+  const data = await res.json();
+  responseBox.innerHTML += `<p><strong>VoltBot:</strong> ${data.message}</p>`;
+  input.value = '';
+}
+
+document.querySelector('.section:last-child input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') askVoltBot();
+});
+</script>
+
+  
+
 </body>
 </html>
