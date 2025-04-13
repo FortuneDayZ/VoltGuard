@@ -83,6 +83,37 @@
       border: 1px solid #ccc;
       font-size: 0.95rem;
     }
+    
+    select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.6rem 2.5rem 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%230D95B9' viewBox='0 0 20 20'%3E%3Cpath d='M7 7l3 3 3-3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(13, 149, 185, 0.2);
+  outline: none;
+}
+
+select:hover {
+  border-color: var(--primary);
+  cursor: pointer;
+}
+
+
     button {
       background-color: var(--primary);
       color: white;
@@ -198,16 +229,18 @@
       <div class="section">
         <h2>Devices You've Added</h2>
         <table class="device-table">
-          <thead>
-            <tr>
-              <th>Appliance</th>
-              <th>Runtime</th>
-              <th>Watts</th>
-              <th>kWh/day</th>
-              <th>Cost</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+<thead>
+  <tr>
+    <th>Appliance</th>
+    <th>Category</th>
+    <th>Runtime</th>
+    <th>Watts</th>
+    <th>kWh/day</th>
+    <th>Cost</th>
+    <th>Actions</th>
+  </tr>
+</thead>
+
           <tbody id="deviceBody"></tbody>
         </table>
         <div class="total-cost">
@@ -300,16 +333,18 @@
       tbody.innerHTML = '';
       deviceList.forEach((device, index) => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${device.name}</td>
-          <td>${device.hours}</td>
-          <td>${device.watts}</td>
-          <td>${(device.hours * device.watts / 1000).toFixed(2)}</td>
-          <td>$${((device.hours * device.watts / 1000) * calculateRate()).toFixed(3)}</td>
-          <td>
-            <button class="remove-btn" onclick="removeDevice(${index})">Remove</button>
-            <button class="remove-btn" style="background-color: #fbc648" onclick="editDevice(${index})">Edit</button>
-          </td>`;
+tr.innerHTML = `
+  <td>${device.name}</td>
+  <td>${device.category}</td>
+  <td>${device.hours}</td>
+  <td>${device.watts}</td>
+  <td>${(device.hours * device.watts / 1000).toFixed(2)}</td>
+  <td>$${((device.hours * device.watts / 1000) * calculateRate()).toFixed(3)}</td>
+  <td>
+    <button class="remove-btn" onclick="removeDevice(${index})">Remove</button>
+    <button class="remove-btn" style="background-color: #fbc648" onclick="editDevice(${index})">Edit</button>
+  </td>`;
+
         tbody.appendChild(tr);
       });
       recalculateTotal();
