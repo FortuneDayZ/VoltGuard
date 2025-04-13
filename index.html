@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>VoltGuard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --primary: #0d95b9;
@@ -11,14 +12,12 @@
       --glass-bg: rgba(255, 255, 255, 0.8);
       --glass-border: rgba(255, 255, 255, 0.3);
     }
-
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(145deg, #e6f1f8, #f9f9f9);
       color: #333;
     }
-
     header {
       background: linear-gradient(90deg, var(--primary), #12b8c8);
       color: white;
@@ -28,12 +27,10 @@
       align-items: center;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
-
     header h1 {
       margin: 0;
       font-size: 1.8rem;
     }
-
     nav a {
       margin-left: 1.5rem;
       color: white;
@@ -41,7 +38,6 @@
       font-weight: 600;
       position: relative;
     }
-
     nav a::after {
       content: "";
       position: absolute;
@@ -53,18 +49,15 @@
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
-
     nav a:hover::after {
       transform: scaleX(1);
     }
-
     .container {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 2.5rem;
       padding: 2.5rem;
     }
-
     .section {
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
@@ -74,7 +67,6 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       margin-bottom: 2.5rem;
     }
-
     h2 {
       margin-top: 0;
       font-size: 1.3rem;
@@ -82,7 +74,6 @@
       border-left: 4px solid var(--accent);
       padding-left: 0.5rem;
     }
-
     input, select, button {
       margin-top: 0.5rem;
       padding: 0.6rem;
@@ -92,7 +83,6 @@
       border: 1px solid #ccc;
       font-size: 0.95rem;
     }
-
     button {
       background-color: var(--primary);
       color: white;
@@ -101,11 +91,9 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     button:hover {
       background-color: #0b7fa1;
     }
-
     .device-table {
       width: 100%;
       border-collapse: collapse;
@@ -115,27 +103,21 @@
       border-radius: 10px;
       overflow: hidden;
     }
-
     .device-table thead {
       background-color: var(--primary);
       color: white;
     }
-
-    .device-table th,
-    .device-table td {
+    .device-table th, .device-table td {
       padding: 0.75rem 1rem;
       text-align: left;
       border-bottom: 1px solid #ddd;
     }
-
     .device-table tr:nth-child(even) {
       background-color: #f4f9fc;
     }
-
     .device-table tr:hover {
       background-color: #eaf6fa;
     }
-
     .remove-btn {
       background-color: #f45c5c;
       border: none;
@@ -144,13 +126,10 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
-      transition: background-color 0.3s ease;
     }
-
     .remove-btn:hover {
       background-color: #d84343;
     }
-
     .total-cost {
       text-align: right;
       font-size: 1.1rem;
@@ -158,19 +137,16 @@
       margin-top: 1.5rem;
       color: #333;
     }
-
-    .graph {
-      height: 240px;
-      background: linear-gradient(to top left, #e8f6fb, #cde8f6);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      color: #555;
-      font-weight: 500;
+    #categoryChart {
+      max-width: 260px;
+      max-height: 260px;
+      margin: 0 auto;
+      display: block;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      padding: 1rem;
     }
-
     @media (max-width: 768px) {
       .container {
         grid-template-columns: 1fr;
@@ -187,154 +163,71 @@
       <a href="#">Advice</a>
     </nav>
   </header>
-
   <div class="container">
+    <!-- LEFT COLUMN -->
     <div>
-      <!-- Electricity Rate Section -->
       <div class="section">
         <h2>Select Electricity Rate</h2>
-        <select>
+        <select id="rateSelect">
           <option>Choose Standard Rate</option>
-          <option>Alabama - 14.91¢</option>
-          <option>Alaska - 20.41¢</option>
-          <option>Arizona - 13.56¢</option>
-          <option>Arkansas - 10.93¢</option>
           <option>California - 26.84¢</option>
-          <option>Colorado - 13.14¢</option>
-          <option>Connecticut - 25.78¢</option>
-          <option>Delaware - 14.76¢</option>
-          <option>District of Columbia - 18.18¢</option>
-          <option>Florida - 12.70¢</option>
-          <option>Georgia - 12.40¢</option>
-          <option>Hawaii - 40.32¢</option>
-          <option>Idaho - 9.66¢</option>
-          <option>Illinois - 13.82¢</option>
-          <option>Indiana - 13.44¢</option>
-          <option>Iowa - 11.31¢</option>
-          <option>Kansas - 12.30¢</option>
-          <option>Kentucky - 12.60¢</option>
-          <option>Louisiana - 11.22¢</option>
-          <option>Maine - 22.93¢</option>
-          <option>Maryland - 15.85¢</option>
-          <option>Massachusetts - 26.84¢</option>
-          <option>Michigan - 16.07¢</option>
-          <option>Minnesota - 12.52¢</option>
-          <option>Mississippi - 12.89¢</option>
-          <option>Missouri - 10.51¢</option>
-          <option>Montana - 11.41¢</option>
-          <option>Nebraska - 9.49¢</option>
-          <option>Nevada - 12.37¢</option>
-          <option>New Hampshire - 21.77¢</option>
-          <option>New Jersey - 17.13¢</option>
-          <option>New Mexico - 12.38¢</option>
-          <option>New York - 21.57¢</option>
-          <option>North Carolina - 12.21¢</option>
-          <option>North Dakota - 8.70¢</option>
-          <option>Ohio - 13.33¢</option>
-          <option>Oklahoma - 10.00¢</option>
-          <option>Oregon - 12.35¢</option>
-          <option>Pennsylvania - 14.36¢</option>
-          <option>Rhode Island - 24.70¢</option>
-          <option>South Carolina - 12.25¢</option>
-          <option>South Dakota - 11.52¢</option>
-          <option>Tennessee - 12.89¢</option>
           <option>Texas - 12.09¢</option>
-          <option>Utah - 9.40¢</option>
-          <option>Vermont - 20.94¢</option>
-          <option>Virginia - 11.76¢</option>
-          <option>Washington - 11.21¢</option>
-          <option>West Virginia - 13.14¢</option>
-          <option>Wisconsin - 14.04¢</option>
-          <option>Wyoming - 10.43¢</option>
           <option>U.S. Average - 12.89¢</option>
         </select>
-        <input type="number" placeholder="Or enter your rate ($/kWh)" />
+        <input type="number" id="rateInput" placeholder="Or enter your rate ($/kWh)" />
       </div>
 
-      <!-- Device Input Section -->
       <div class="section">
         <h2>Add Device Usage</h2>
-        <input type="text" placeholder="Device Name" />
-        <input type="number" placeholder="Watts Used" />
-        <input type="number" placeholder="Hours per Day" />
-        <button>Add Appliance</button>
+        <input type="text" id="nameInput" placeholder="Device Name" />
+        <input type="number" id="wattsInput" placeholder="Watts Used" />
+        <input type="number" id="hoursInput" placeholder="Hours per Day" />
+        <select id="categorySelect">
+          <option value="">Select Category</option>
+          <option>Appliances</option>
+          <option>Personal Electronics</option>
+          <option>Heating & Cooling</option>
+          <option>Lighting</option>
+          <option>Kitchen & Cooking</option>
+          <option>Outdoor / Utility</option>
+          <option>Miscellaneous</option>
+        </select>
+        <button id="addButton">Add Appliance</button>
       </div>
 
-      <!-- Devices Table -->
       <div class="section">
         <h2>Devices You've Added</h2>
         <table class="device-table">
           <thead>
             <tr>
               <th>Appliance</th>
-              <th>Daily Runtime (hrs)</th>
-              <th>Power Draw (W)</th>
-              <th>Energy Use (kWh/day)</th>
-              <th>Daily Cost</th>
-              <th>Manage</th>
+              <th>Runtime</th>
+              <th>Watts</th>
+              <th>kWh/day</th>
+              <th>Cost</th>
+              <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Refrigerator</td>
-              <td>24</td>
-              <td>240</td>
-              <td>0.40</td>
-              <td>$0.052</td>
-              <td><button class="remove-btn">Remove</button></td>
-            </tr>
-            <tr>
-              <td>Laptop</td>
-              <td>3</td>
-              <td>30</td>
-              <td>2.60</td>
-              <td>$0.338</td>
-              <td><button class="remove-btn">Remove</button></td>
-            </tr>
-            <tr>
-              <td>Microwave</td>
-              <td>1</td>
-              <td>100</td>
-              <td>0.35</td>
-              <td>$0.0455</td>
-              <td><button class="remove-btn">Remove</button></td>
-            </tr>
-            <tr>
-              <td>Heater</td>
-              <td>5</td>
-              <td>2000</td>
-              <td>11.50</td>
-              <td>$1.495</td>
-              <td><button class="remove-btn">Remove</button></td>
-            </tr>
-            <tr>
-              <td>Water Pump</td>
-              <td>13</td>
-              <td>13000</td>
-              <td>40.00</td>
-              <td>$5.20</td>
-              <td><button class="remove-btn">Remove</button></td>
-            </tr>
-          </tbody>
+          <tbody id="deviceBody"></tbody>
         </table>
         <div class="total-cost">
-          <strong>Total Daily Cost:</strong> <span>$7.13</span>
+          <strong>Total Daily Cost:</strong> <span id="totalCost">$0.00</span>
         </div>
-      </div>
-
-      <!-- Monthly Usage Graph -->
-      <div class="section">
-        <h2>Monthly Usage Overview</h2>
-        <div class="graph">[Monthly Usage Graph Placeholder]</div>
       </div>
     </div>
 
-    <!-- Right Column -->
+    <!-- RIGHT COLUMN -->
     <div>
       <div class="section">
         <h2>Map (Placeholder)</h2>
         <div class="graph">[Google Map Placeholder]</div>
       </div>
+
+      <div class="section">
+        <h2>Electricity Cost by Category</h2>
+        <canvas id="categoryChart"></canvas>
+      </div>
+
       <div class="section">
         <h2>Ask VoltBot</h2>
         <div style="height: 200px; background-color: #fff8e1; border: 2px dashed var(--accent); padding: 1rem; border-radius: 8px; overflow-y: auto;">
@@ -345,5 +238,211 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const deviceList = [];
+    const rateSelect = document.getElementById('rateSelect');
+    const rateInput = document.getElementById('rateInput');
+    const nameInput = document.getElementById('nameInput');
+    const wattsInput = document.getElementById('wattsInput');
+    const hoursInput = document.getElementById('hoursInput');
+    const categoryInput = document.getElementById('categorySelect');
+    const addButton = document.getElementById('addButton');
+    const tbody = document.getElementById('deviceBody');
+    const totalCostDisplay = document.getElementById('totalCost');
+    let chart;
+
+    const predefinedDevices = {
+      'Laptop': { watts: 50, hours: 3 },
+      'Fridge': { watts: 150, hours: 24 },
+      'Microwave': { watts: 1000, hours: 1 }
+    };
+
+    nameInput.addEventListener('input', () => {
+      const val = nameInput.value.trim();
+      if (predefinedDevices[val]) {
+        wattsInput.value = predefinedDevices[val].watts;
+        hoursInput.value = predefinedDevices[val].hours;
+      }
+    });
+
+    function showToast(msg) {
+      const toast = document.createElement('div');
+      toast.textContent = msg;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '1rem';
+      toast.style.right = '1rem';
+      toast.style.background = '#0d95b9';
+      toast.style.color = 'white';
+      toast.style.padding = '0.75rem 1.25rem';
+      toast.style.borderRadius = '8px';
+      toast.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function calculateRate() {
+      let rateStr = rateSelect.value.split(' - ')[1];
+      let rate = rateStr ? parseFloat(rateStr) / 100 : parseFloat(rateInput.value);
+      return isNaN(rate) ? 0.1289 : rate;
+    }
+
+    function recalculateTotal() {
+      const rate = calculateRate();
+      let total = 0;
+      deviceList.forEach(device => {
+        total += (device.watts * device.hours / 1000) * rate;
+      });
+      totalCostDisplay.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function renderDevices() {
+      tbody.innerHTML = '';
+      deviceList.forEach((device, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${device.name}</td>
+          <td>${device.hours}</td>
+          <td>${device.watts}</td>
+          <td>${(device.hours * device.watts / 1000).toFixed(2)}</td>
+          <td>$${((device.hours * device.watts / 1000) * calculateRate()).toFixed(3)}</td>
+          <td>
+            <button class="remove-btn" onclick="removeDevice(${index})">Remove</button>
+            <button class="remove-btn" style="background-color: #fbc648" onclick="editDevice(${index})">Edit</button>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+      recalculateTotal();
+      updatePieChart();
+    }
+
+    function removeDevice(index) {
+      deviceList.splice(index, 1);
+      renderDevices();
+      showToast('Device removed.');
+    }
+
+    function editDevice(index) {
+      const device = deviceList[index];
+      nameInput.value = device.name;
+      wattsInput.value = device.watts;
+      hoursInput.value = device.hours;
+      categoryInput.value = device.category;
+      removeDevice(index);
+      showToast('Editing device.');
+    }
+
+    addButton.addEventListener('click', () => {
+      const name = nameInput.value.trim();
+      const watts = parseFloat(wattsInput.value);
+      const hours = parseFloat(hoursInput.value);
+      const category = categoryInput.value;
+      if (!name || isNaN(watts) || isNaN(hours) || !category) {
+        showToast('Please complete all fields including category.');
+        return;
+      }
+      deviceList.push({ name, watts, hours, category });
+      renderDevices();
+      nameInput.value = wattsInput.value = hoursInput.value = '';
+      categoryInput.value = '';
+      showToast('Device added!');
+    });
+
+    rateSelect.addEventListener('change', () => {
+      showToast('Rate updated. Recalculating...');
+      recalculateTotal();
+      updatePieChart();
+    });
+
+    rateInput.addEventListener('input', () => {
+      showToast('Rate updated. Recalculating...');
+      recalculateTotal();
+      updatePieChart();
+    });
+
+function updatePieChart() {
+  const categoryData = {};
+  const rate = calculateRate();
+  deviceList.forEach(device => {
+    const energy = (device.watts * device.hours / 1000) * rate;
+    categoryData[device.category] = (categoryData[device.category] || 0) + energy;
+  });
+
+  const labels = Object.keys(categoryData);
+  const data = Object.values(categoryData);
+  const total = data.reduce((a, b) => a + b, 0);
+
+  const colors = ['#6EB7C9', '#FBC648', '#CB2C3C', '#C3E6CB', '#E6C3F1', '#FFD6A5', '#0D95B9'];
+
+  if (chart) chart.destroy();
+  const ctx = document.getElementById('categoryChart').getContext('2d');
+
+  chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data,
+        backgroundColor: colors,
+        borderColor: '#fff',
+        borderWidth: 2,
+        borderRadius: 12,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '65%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            usePointStyle: true,
+            font: {
+              size: 14,
+              weight: '600'
+            },
+            color: '#333'
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.label}: $${ctx.raw.toFixed(2)}`
+          },
+          backgroundColor: '#fff',
+          titleColor: '#333',
+          bodyColor: '#333',
+          borderColor: '#ccc',
+          borderWidth: 1
+        }
+      }
+    },
+    plugins: [{
+      id: 'centerText',
+      beforeDraw(chart) {
+        const { width, height, ctx } = chart;
+        ctx.restore();
+        const fontSize = (height / 140).toFixed(2);
+        ctx.font = `bold ${fontSize}em Inter`;
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#333';
+
+        const text = `$${total.toFixed(2)}`;
+        const textX = Math.round((width - ctx.measureText(text).width) / 2);
+        const textY = height / 2 - 10;
+        ctx.fillText(text, textX, textY);
+
+        ctx.font = `14px Inter`;
+        const subtext = "Total";
+        const subX = Math.round((width - ctx.measureText(subtext).width) / 2);
+        ctx.fillStyle = '#666';
+        ctx.fillText(subtext, subX, textY + 20);
+        ctx.save();
+      }
+    }]
+  });
+}
+
+  </script>
 </body>
 </html>
