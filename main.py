@@ -1,44 +1,44 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage, SystemMessage
 from dotenv import load_dotenv
-import os
+import os 
+from langchain_groq import ChatGroq
+from langchain_core.output_parsers import StrOutputParser
+from langchain_community.document_loaders import TextLoader
+
+
+# model setup
 
 load_dotenv()
+api_key : str  = os.getenv('key')
+model: str ="deepseek-r1-distill-llama-70b"
+deepseek = ChatGroq(api_key=api_key, model_name = model)
 
-app = FastAPI()
+# Getting only result from the model
 
-templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
+parser = StrOutputParser()
+deepseek_chain = deepseek|parser
+# result: str = deepseek_chain.invoke('what is a bot')
+# print(result)
 
-chat = ChatOpenAI(model="gpt-4", temperature=0.7)
 
-@app.get("/", response_class=HTMLResponse)
-async def get_home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+# Loading and Spliting data in chunks
+loader = TextLoader('data.txt',encoding = 'utf-8')
+data = loader.load()
+# print(data)
 
-@app.post("/get-advice")
-async def get_advice(request: Request):
-    data = await request.json()
-    devices = data.get("devices", [])
 
-    if not devices:
-        return JSONResponse(content={"message": "No devices provided."}, status_code=400)
+# Define the function of the chatbot
+template = ("""
+You are AI-powered chatbot designed to provide 
+information and assistance for people
+based on the context provided to you only.    
+Don't in any way make things up.   
+Context:{context}
+Question:{question}
+""")
 
-    usage_description = "\n".join(
-        f"{d['name']} ({d['category']}) - {d['watts']}W for {d['hours']} hrs/day"
-        for d in devices
-    )
+question : str = 'What is pdf parsing'
+template = template.format(context = data,question = 'What is pdf parsing')
+# print(template)
 
-    prompt = f"""Here is a list of home appliances and their daily usage:\n{usage_description}\n\nGive simple, actionable advice to reduce electricity usage based on this data. Be friendly and helpful."""
-
-    messages = [
-        SystemMessage(content="You are a helpful energy advisor."),
-        HumanMessage(content=prompt)
-    ]
-
-    response = chat(messages)
-    return {"message": response.content}
+answer = deepseek_chain.invoke(template)
+print(answer)
