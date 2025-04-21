@@ -83,6 +83,15 @@
       border: 1px solid #ccc;
       font-size: 0.95rem;
     }
+
+  /* map container */
+  .map-container {
+  width: 100%;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  }
+
     
     select {
   appearance: none;
@@ -303,7 +312,7 @@ select:hover {
     <div>
       <div class="section">
         <h2>Map (Placeholder)</h2>
-        <div class="graph">[Google Map Placeholder]</div>
+        <div id="map" class="map-container"></div>
       </div>
 
       <div class="section">
@@ -563,7 +572,167 @@ document.querySelector('.section:last-child input').addEventListener('keydown', 
 });
 </script>
 
+
+
+
+<!-- MAP logic -->
+<script>
+  let map;
+  let infoWindow;
+
+  // Called by the Google Maps API once it loads
+   // 1) initMap must be defined globally
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 39.8283, lng: -98.5795 },
+      zoom: 4
+    });
+    infoWindow = new google.maps.InfoWindow();
+  }
+
+  // 2) and your rateSelect listener to call updateMapRegion(...)
+  rateSelect.addEventListener("change", () => {
+    const text   = rateSelect.options[rateSelect.selectedIndex].text; // e.g. "California - $0.27"
+    const region = text.split(" - ")[0];
+    const rate   = rateSelect.value;
+    updateMapRegion(region, rate);
+  });
   
+  function updateMapRegion(region, rate) {
+    let center, zoom;
+    switch (region) {
+  case "Alabama":
+    center = { lat: 32.806671, lng: -86.791130 }; zoom = 6; break;
+  case "Alaska":
+    center = { lat: 61.370716, lng: -152.404419 }; zoom = 4; break;
+  case "Arizona":
+    center = { lat: 33.729759, lng: -111.431221 }; zoom = 6; break;
+  case "Arkansas":
+    center = { lat: 34.969704, lng: -92.373123  }; zoom = 6; break;
+  case "California":
+    center = { lat: 36.116203, lng: -119.681564 }; zoom = 6; break;
+  case "Colorado":
+    center = { lat: 39.059811, lng: -105.311104 }; zoom = 6; break;
+  case "Connecticut":
+    center = { lat: 41.597782, lng: -72.755371  }; zoom = 7; break;
+  case "Delaware":
+    center = { lat: 39.318523, lng: -75.507141  }; zoom = 7; break;
+  case "Florida":
+    center = { lat: 27.766279, lng: -81.686783  }; zoom = 6; break;
+  case "Georgia":
+    center = { lat: 33.040619, lng: -83.643074  }; zoom = 6; break;
+  case "Hawaii":
+    center = { lat: 21.094318, lng: -157.498337 }; zoom = 5; break;
+  case "Idaho":
+    center = { lat: 44.240459, lng: -114.478828 }; zoom = 6; break;
+  case "Illinois":
+    center = { lat: 40.349457, lng: -88.986137  }; zoom = 6; break;
+  case "Indiana":
+    center = { lat: 39.849426, lng: -86.258278  }; zoom = 6; break;
+  case "Iowa":
+    center = { lat: 42.011539, lng: -93.210526  }; zoom = 6; break;
+  case "Kansas":
+    center = { lat: 38.526600, lng: -96.726486  }; zoom = 6; break;
+  case "Kentucky":
+    center = { lat: 37.668140, lng: -84.670067  }; zoom = 6; break;
+  case "Louisiana":
+    center = { lat: 31.169546, lng: -91.867805  }; zoom = 6; break;
+  case "Maine":
+    center = { lat: 44.693947, lng: -69.381927  }; zoom = 6; break;
+  case "Maryland":
+    center = { lat: 39.063946, lng: -76.802101  }; zoom = 6; break;
+  case "Massachusetts":
+    center = { lat: 42.230171, lng: -71.530106  }; zoom = 7; break;
+  case "Michigan":
+    center = { lat: 43.326618, lng: -84.536095  }; zoom = 6; break;
+  case "Minnesota":
+    center = { lat: 45.694454, lng: -93.900192  }; zoom = 6; break;
+  case "Mississippi":
+    center = { lat: 32.741646, lng: -89.678696  }; zoom = 6; break;
+  case "Missouri":
+    center = { lat: 38.456085, lng: -92.288368  }; zoom = 6; break;
+  case "Montana":
+    center = { lat: 46.921925, lng: -110.454353 }; zoom = 5; break;
+  case "Nebraska":
+    center = { lat: 41.125370, lng: -98.268082  }; zoom = 6; break;
+  case "Nevada":
+    center = { lat: 38.313515, lng: -117.055374 }; zoom = 6; break;
+  case "New Hampshire":
+    center = { lat: 43.452492, lng: -71.563896  }; zoom = 7; break;
+  case "New Jersey":
+    center = { lat: 40.298904, lng: -74.521011  }; zoom = 7; break;
+  case "New Mexico":
+    center = { lat: 34.840515, lng: -106.248482 }; zoom = 6; break;
+  case "New York":
+    center = { lat: 42.165726, lng: -74.948051  }; zoom = 6; break;
+  case "North Carolina":
+    center = { lat: 35.630066, lng: -79.806419  }; zoom = 6; break;
+  case "North Dakota":
+    center = { lat: 47.528912, lng: -99.784012  }; zoom = 6; break;
+  case "Ohio":
+    center = { lat: 40.388783, lng: -82.764915  }; zoom = 6; break;
+  case "Oklahoma":
+    center = { lat: 35.565342, lng: -96.928917  }; zoom = 6; break;
+  case "Oregon":
+    center = { lat: 44.572021, lng: -122.070938 }; zoom = 6; break;
+  case "Pennsylvania":
+    center = { lat: 40.590752, lng: -77.209755  }; zoom = 6; break;
+  case "Rhode Island":
+    center = { lat: 41.680893, lng: -71.511780  }; zoom = 8; break;
+  case "South Carolina":
+    center = { lat: 33.856892, lng: -80.945007  }; zoom = 6; break;
+  case "South Dakota":
+    center = { lat: 44.299782, lng: -99.438828  }; zoom = 6; break;
+  case "Tennessee":
+    center = { lat: 35.747845, lng: -86.692345  }; zoom = 6; break;
+  case "Texas":
+    center = { lat: 31.054487, lng: -97.563461  }; zoom = 6; break;
+  case "Utah":
+    center = { lat: 39.419220, lng: -111.950684 }; zoom = 6; break;
+  case "Vermont":
+    center = { lat: 44.040656, lng: -72.709146  }; zoom = 7; break;
+  case "Virginia":
+    center = { lat: 37.769337, lng: -78.169968  }; zoom = 6; break;
+  case "Washington":
+    center = { lat: 47.400902, lng: -121.490494 }; zoom = 6; break;
+  case "West Virginia":
+    center = { lat: 38.491226, lng: -80.954453  }; zoom = 6; break;
+  case "Wisconsin":
+    center = { lat: 44.268543, lng: -89.616508  }; zoom = 6; break;
+  case "Wyoming":
+    center = { lat: 42.755966, lng: -107.302490 }; zoom = 6; break;
+  default:
+    // U.S. Average
+    center = { lat: 39.828300, lng: -98.579500 }; zoom = 4;
+}
+
+    map.setCenter(center);
+    map.setZoom(zoom);
+    infoWindow.setContent(`
+      <div style="font-size:14px;">
+        <strong>${region}</strong><br>
+        Rate: $${parseFloat(rate).toFixed(2)}/kWh
+      </div>`);
+    infoWindow.setPosition(center);
+    infoWindow.open(map);
+  }
+
+  // listen for rate changes
+  rateSelect.addEventListener("change", () => {
+    const idx = rateSelect.selectedIndex;
+    const text = rateSelect.options[idx].text;     // e.g. "California - $0.27"
+    const region = text.split(" - ")[0];           // "California"
+    const rate = rateSelect.value;                 // "0.27"
+    updateMapRegion(region, rate);
+  });
+</script>
+
+<!-- load the Google Maps API -->
+<script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC06eHiZTAYQqwxNk8jehhcx2YmKlzwYvA&callback=initMap">
+</script>
+
+
 
 </body>
 </html>
