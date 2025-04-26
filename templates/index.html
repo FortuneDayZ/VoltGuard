@@ -198,10 +198,14 @@ select:hover {
   <header>
     <h1>VoltGuard</h1>
     <nav>
-      <a href="#">Login</a>
+      {% if user %}
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login">Login</a>
+      {% endif %}
       <a href="#">Map</a>
       <a href="#">Advice</a>
-    </nav>
+    </nav>    
   </header>
   <div class="container">
     <!-- LEFT COLUMN -->
