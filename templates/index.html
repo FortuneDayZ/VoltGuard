@@ -268,7 +268,7 @@ select:hover {
     <option value="0.1595">United States (Average) - $0.1595</option>
   </select>
   
-  <input type="number" id="rateInput" step="0.01" placeholder="Or enter your rate ($/kWh)" />
+  <input type="number" id="rateInput" step="0.01" placeholder="Or enter your rate ($/kWh)" value="" />
 </div>
 
       <div class="section">
@@ -296,7 +296,7 @@ select:hover {
   <tr>
     <th>Appliance</th>
     <th>Category</th>
-    <th>Runtime</th>
+    <th>Usage (hrs) </th>
     <th>Watts</th>
     <th>kWh/day</th>
     <th>Cost</th>
@@ -347,6 +347,7 @@ select:hover {
     const tbody = document.getElementById('deviceBody');
     const totalCostDisplay = document.getElementById('totalCost');
     let chart;
+    let editIndex = -1;
 
     const predefinedDevices = {
       'Laptop': { watts: 50, hours: 3 },
@@ -414,37 +415,78 @@ tr.innerHTML = `
       updatePieChart();
     }
 
-    function removeDevice(index) {
-      deviceList.splice(index, 1);
-      renderDevices();
-      showToast('Device removed.');
-    }
+    async function removeDevice(index) {
+  const { id } = deviceList[index];
+  const res = await fetch(`/api/devices/${id}`, { method: 'DELETE' });
+  if (!res.ok) {
+    return showToast('Failed to remove device.');
+  }
+  deviceList.splice(index, 1);
+  renderDevices();
+  showToast('Device removed.');
+}
 
-    function editDevice(index) {
-      const device = deviceList[index];
-      nameInput.value = device.name;
-      wattsInput.value = device.watts;
-      hoursInput.value = device.hours;
-      categoryInput.value = device.category;
-      removeDevice(index);
-      showToast('Editing device.');
-    }
 
-    addButton.addEventListener('click', () => {
-      const name = nameInput.value.trim();
-      const watts = parseFloat(wattsInput.value);
-      const hours = parseFloat(hoursInput.value);
-      const category = categoryInput.value;
-      if (!name || isNaN(watts) || isNaN(hours) || !category) {
-        showToast('Please complete all fields including category.');
-        return;
-      }
-      deviceList.push({ name, watts, hours, category });
-      renderDevices();
-      nameInput.value = wattsInput.value = hoursInput.value = '';
-      categoryInput.value = '';
-      showToast('Device added!');
+function editDevice(index) {
+  const device = deviceList[index];
+  nameInput.value = device.name;
+  wattsInput.value = device.watts;
+  hoursInput.value = device.hours;
+  categoryInput.value = device.category;
+  editIndex = index; 
+  showToast('Editing device.');
+}
+
+
+
+addButton.addEventListener('click', async () => {
+  const name     = nameInput.value.trim();
+  const watts    = parseFloat(wattsInput.value);
+  const hours    = parseFloat(hoursInput.value);
+  const category = categoryInput.value;
+
+  if (!name || isNaN(watts) || isNaN(hours) || !category) {
+    return showToast('Please complete all fields including category.');
+  }
+
+  if (editIndex !== -1) {
+    const device = deviceList[editIndex];
+    const res = await fetch(`/api/devices/${device.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, watts, hours, category })
     });
+
+    if (!res.ok) {
+      showToast('Failed to update device.');
+      return;
+    }
+
+    deviceList[editIndex] = { id: device.id, name, watts, hours, category };
+    editIndex = -1;
+    showToast('Device updated!');
+  } else {
+    const res = await fetch('/api/devices', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, watts, hours, category })
+    });
+
+    if (!res.ok) {
+      showToast('Failed to save device.');
+      return;
+    }
+
+    const { id } = await res.json();
+    deviceList.push({ id, name, watts, hours, category });
+    showToast('Device added!');
+  }
+
+  renderDevices();
+  nameInput.value = wattsInput.value = hoursInput.value = '';
+  categoryInput.value = '';
+});
+
 
     rateSelect.addEventListener('change', () => {
       showToast('Rate updated. Recalculating...');
@@ -540,15 +582,53 @@ function updatePieChart() {
     }]
   });
 }
+window.addEventListener('load', async () => {
+  const r = await fetch('/api/rate');
+  if (r.ok) {
+    const { rate } = await r.json();
+
+    if (rate) { 
+      let matched = false;
+      for (let i = 0; i < rateSelect.options.length; i++) {
+        if (parseFloat(rateSelect.options[i].value) === parseFloat(rate)) {
+          rateSelect.selectedIndex = i;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        rateInput.value = rate !== 0 ? rate : '';
+      }
+    } else {
+      rateInput.value = '';
+    }
+
+    recalculateTotal();
+  }
+
+  const d = await fetch('/api/devices');
+  if (d.ok) {
+    const list = await d.json();
+    deviceList.splice(0, deviceList.length,
+      ...list.map(dev => ({
+        id:       dev.id,
+        name:     dev.name,
+        watts:    dev.watts,
+        hours:    dev.hours,
+        category: dev.category
+      }))
+    );
+    renderDevices();
+  }
+});
+
 
   </script>
   
-  <!-- Your existing script block -->
 <script>
-  // ... all your existing code like deviceList[], chart setup, etc ...
+
 </script>
 
-<!-- 🧠 VoltBot chat logic -->
 <script>
 async function askVoltBot() {
   const responseBox = document.querySelector('.section:last-child div');
@@ -577,15 +657,10 @@ document.querySelector('.section:last-child input').addEventListener('keydown', 
 </script>
 
 
-
-
-<!-- MAP logic -->
 <script>
   let map;
   let infoWindow;
 
-  // Called by the Google Maps API once it loads
-   // 1) initMap must be defined globally
   function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 39.8283, lng: -98.5795 },
@@ -594,9 +669,8 @@ document.querySelector('.section:last-child input').addEventListener('keydown', 
     infoWindow = new google.maps.InfoWindow();
   }
 
-  // 2) and your rateSelect listener to call updateMapRegion(...)
   rateSelect.addEventListener("change", () => {
-    const text   = rateSelect.options[rateSelect.selectedIndex].text; // e.g. "California - $0.27"
+    const text   = rateSelect.options[rateSelect.selectedIndex].text; 
     const region = text.split(" - ")[0];
     const rate   = rateSelect.value;
     updateMapRegion(region, rate);
@@ -706,7 +780,6 @@ document.querySelector('.section:last-child input').addEventListener('keydown', 
   case "Wyoming":
     center = { lat: 42.755966, lng: -107.302490 }; zoom = 6; break;
   default:
-    // U.S. Average
     center = { lat: 39.828300, lng: -98.579500 }; zoom = 4;
 }
 
@@ -721,17 +794,17 @@ document.querySelector('.section:last-child input').addEventListener('keydown', 
     infoWindow.open(map);
   }
 
-  // listen for rate changes
+
   rateSelect.addEventListener("change", () => {
     const idx = rateSelect.selectedIndex;
-    const text = rateSelect.options[idx].text;     // e.g. "California - $0.27"
-    const region = text.split(" - ")[0];           // "California"
-    const rate = rateSelect.value;                 // "0.27"
+    const text = rateSelect.options[idx].text;  
+    const region = text.split(" - ")[0]; 
+    const rate = rateSelect.value;  
     updateMapRegion(region, rate);
   });
 </script>
 
-<!-- load the Google Maps API -->
+
 <script async
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC06eHiZTAYQqwxNk8jehhcx2YmKlzwYvA&callback=initMap">
 </script>
