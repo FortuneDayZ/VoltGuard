@@ -206,7 +206,7 @@ select:hover {
       position: fixed;
       bottom: 30px;
       right: 35px;
-      z-index: 9999; /* Ensure toggler is on top */
+      z-index: 9999;
       border: none;
       height: 50px;
       width: 50px;
@@ -215,7 +215,7 @@ select:hover {
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: #5350C4;
+      background: var(--primary);
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
     }
@@ -240,7 +240,7 @@ select:hover {
       bottom: 90px;
       right: 35px;
       width: 420px;
-      max-height: 80vh; /* Constrain height so it’s fully visible */
+      max-height: 80vh; /* Constrain height so it's fully visible */
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
@@ -269,7 +269,7 @@ select:hover {
       display: flex;
       align-items: center;
       padding: 15px 22px;
-      background: #5350C4;
+      background: var(--primary);
       justify-content: space-between;
     }
     .chat-header .header-info {
@@ -280,7 +280,7 @@ select:hover {
     .chat-header .chatbot-logo {
       width: 35px;
       height: 35px;
-      fill: #5350C4;
+      fill: var(--primary);
       background: #fff;
       padding: 6px;
       border-radius: 50%;
@@ -342,7 +342,7 @@ select:hover {
 
     /* Bot & User Messages */
     .chat-body .bot-message .message-text {
-      background: #F2F2FF;
+      background: #e6f1f8;
       border-radius: 13px 13px 13px 3px;
     }
     .chat-body .user-message {
@@ -351,7 +351,7 @@ select:hover {
     }
     .chat-body .user-message .message-text {
       color: #fff;
-      background: #5350C4;
+      background: var(--primary);
       border-radius: 13px 13px 3px 13px;
     }
     .chat-body .user-message .attachment {
@@ -371,7 +371,7 @@ select:hover {
       width: 7px;
       opacity: 0.7;
       border-radius: 50%;
-      background: #6F6BC2;
+      background: var(--primary);
       animation: dotPulse 1.8s ease-in-out infinite;
     }
     .thinking-indicator .dot:nth-child(1) {
@@ -413,7 +413,7 @@ select:hover {
       transition: 0s ease, border-radius 0s;
     }
     .chat-form:focus-within {
-      outline: 2px solid #5350C4;
+      outline: 2px solid var(--primary);
     }
     .message-input {
       width: 100%;
@@ -449,13 +449,13 @@ select:hover {
     }
     .chat-controls button:hover,
     body.show-emoji-picker .chat-controls #emoji-picker {
-      color: #3d39ac;
-      background: #f1f1ff;
+      color: var(--primary);
+      background: #e6f1f8;
     }
     #send-message {
       color: #fff;
       display: none;
-      background: #5350C4;
+      background: var(--primary);
     }
     .message-input:valid ~ .chat-controls #send-message {
       display: block;
@@ -525,9 +525,105 @@ select:hover {
       }
     }
 
+    .login-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-popup.active {
+      display: flex;
+    }
+
+    .login-popup-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .login-popup h3 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    .login-popup p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-popup-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .login-popup-buttons a {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-popup-buttons .primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .login-popup-buttons .secondary {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .login-popup-buttons a:hover {
+      opacity: 0.9;
+    }
+
+    .rate-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .rate-input-group select,
+    .rate-input-group input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #rateInfo {
+      margin-top: 2px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    /* Add styles for device input group */
+    .device-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .device-input-group input,
+    .device-input-group select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
   </style>
 </head>
-<body>
+<body {% if not user %}data-requires-login="true"{% endif %}>
   <header>
     <h1>VoltGuard</h1>
     <nav>
@@ -536,8 +632,6 @@ select:hover {
       {% else %}
         <a href="/login">Login</a>
       {% endif %}
-      <a href="#">Map</a>
-      <a href="#">Advice</a>
     </nav>    
   </header>
   <div class="container">
@@ -545,81 +639,86 @@ select:hover {
     <div>
 <div class="section">
   <h2>Select Electricity Rate</h2>
-  <label for="rateSelect">Choose Electricity Rate ($/kWh)</label>
-  <select id="rateSelect">
-    <option value="">-- Select a Standard Rate --</option>
-    <option value="0.1505">Alabama - $0.1505</option>
-    <option value="0.2474">Alaska - $0.2474</option>
-    <option value="0.1475">Arizona - $0.1475</option>
-    <option value="0.1125">Arkansas - $0.1125</option>
-    <option value="0.3022">California - $0.3022</option>
-    <option value="0.1501">Colorado - $0.1501</option>
-    <option value="0.3006">Connecticut - $0.3006</option>
-    <option value="0.1552">Delaware - $0.1552</option>
-    <option value="0.1443">Florida - $0.1443</option>
-    <option value="0.1352">Georgia - $0.1352</option>
-    <option value="0.4051">Hawaii - $0.4051</option>
-    <option value="0.1082">Idaho - $0.1082</option>
-    <option value="0.1581">Illinois - $0.1581</option>
-    <option value="0.1465">Indiana - $0.1465</option>
-    <option value="0.1205">Iowa - $0.1205</option>
-    <option value="0.1332">Kansas - $0.1332</option>
-    <option value="0.1260">Kentucky - $0.1260</option>
-    <option value="0.1100">Louisiana - $0.1100</option>
-    <option value="0.2613">Maine - $0.2613</option>
-    <option value="0.1826">Maryland - $0.1826</option>
-    <option value="0.3008">Massachusetts - $0.3008</option>
-    <option value="0.1850">Michigan - $0.1850</option>
-    <option value="0.1453">Minnesota - $0.1453</option>
-    <option value="0.1262">Mississippi - $0.1262</option>
-    <option value="0.1119">Missouri - $0.1119</option>
-    <option value="0.1141">Montana - $0.1141</option>
-    <option value="0.1056">Nebraska - $0.1056</option>
-    <option value="0.1392">Nevada - $0.1392</option>
-    <option value="0.2340">New Hampshire - $0.2340</option>
-    <option value="0.1968">New Jersey - $0.1968</option>
-    <option value="0.1373">New Mexico - $0.1373</option>
-    <option value="0.2531">New York - $0.2531</option>
-    <option value="0.1247">North Carolina - $0.1247</option>
-    <option value="0.0993">North Dakota - $0.0993</option>
-    <option value="0.1564">Ohio - $0.1564</option>
-    <option value="0.1102">Oklahoma - $0.1102</option>
-    <option value="0.1444">Oregon - $0.1444</option>
-    <option value="0.1758">Pennsylvania - $0.1758</option>
-    <option value="0.3166">Rhode Island - $0.3166</option>
-    <option value="0.1381">South Carolina - $0.1381</option>
-    <option value="0.1209">South Dakota - $0.1209</option>
-    <option value="0.1270">Tennessee - $0.1270</option>
-    <option value="0.1468">Texas - $0.1468</option>
-    <option value="0.1212">Utah - $0.1212</option>
-    <option value="0.2195">Vermont - $0.2195</option>
-    <option value="0.1404">Virginia - $0.1404</option>
-    <option value="0.1179">Washington - $0.1179</option>
-    <option value="0.1447">West Virginia - $0.1447</option>
-    <option value="0.1742">Wisconsin - $0.1742</option>
-    <option value="0.1169">Wyoming - $0.1169</option>
-    <option value="0.1595">United States (Average) - $0.1595</option>
-  </select>
-  
-  <input type="number" id="rateInput" step="0.01" placeholder="Or enter your rate ($/kWh)" value="" />
+  <div class="rate-input-group">
+    <label for="rateSelect">Choose Electricity Rate ($/kWh)</label>
+    <select id="rateSelect">
+      <option value="">-- Select a Standard Rate --</option>
+      <option value="0.1505">Alabama - $0.1505</option>
+      <option value="0.2474">Alaska - $0.2474</option>
+      <option value="0.1475">Arizona - $0.1475</option>
+      <option value="0.1125">Arkansas - $0.1125</option>
+      <option value="0.3022">California - $0.3022</option>
+      <option value="0.1501">Colorado - $0.1501</option>
+      <option value="0.3006">Connecticut - $0.3006</option>
+      <option value="0.1552">Delaware - $0.1552</option>
+      <option value="0.1443">Florida - $0.1443</option>
+      <option value="0.1352">Georgia - $0.1352</option>
+      <option value="0.4051">Hawaii - $0.4051</option>
+      <option value="0.1082">Idaho - $0.1082</option>
+      <option value="0.1581">Illinois - $0.1581</option>
+      <option value="0.1465">Indiana - $0.1465</option>
+      <option value="0.1205">Iowa - $0.1205</option>
+      <option value="0.1332">Kansas - $0.1332</option>
+      <option value="0.1260">Kentucky - $0.1260</option>
+      <option value="0.1100">Louisiana - $0.1100</option>
+      <option value="0.2613">Maine - $0.2613</option>
+      <option value="0.1826">Maryland - $0.1826</option>
+      <option value="0.3008">Massachusetts - $0.3008</option>
+      <option value="0.1850">Michigan - $0.1850</option>
+      <option value="0.1453">Minnesota - $0.1453</option>
+      <option value="0.1262">Mississippi - $0.1262</option>
+      <option value="0.1119">Missouri - $0.1119</option>
+      <option value="0.1141">Montana - $0.1141</option>
+      <option value="0.1056">Nebraska - $0.1056</option>
+      <option value="0.1392">Nevada - $0.1392</option>
+      <option value="0.2340">New Hampshire - $0.2340</option>
+      <option value="0.1968">New Jersey - $0.1968</option>
+      <option value="0.1373">New Mexico - $0.1373</option>
+      <option value="0.2531">New York - $0.2531</option>
+      <option value="0.1247">North Carolina - $0.1247</option>
+      <option value="0.0993">North Dakota - $0.0993</option>
+      <option value="0.1564">Ohio - $0.1564</option>
+      <option value="0.1102">Oklahoma - $0.1102</option>
+      <option value="0.1444">Oregon - $0.1444</option>
+      <option value="0.1758">Pennsylvania - $0.1758</option>
+      <option value="0.3166">Rhode Island - $0.3166</option>
+      <option value="0.1381">South Carolina - $0.1381</option>
+      <option value="0.1209">South Dakota - $0.1209</option>
+      <option value="0.1270">Tennessee - $0.1270</option>
+      <option value="0.1468">Texas - $0.1468</option>
+      <option value="0.1212">Utah - $0.1212</option>
+      <option value="0.2195">Vermont - $0.2195</option>
+      <option value="0.1404">Virginia - $0.1404</option>
+      <option value="0.1179">Washington - $0.1179</option>
+      <option value="0.1447">West Virginia - $0.1447</option>
+      <option value="0.1742">Wisconsin - $0.1742</option>
+      <option value="0.1169">Wyoming - $0.1169</option>
+      <option value="0.1595">United States (Average) - $0.1595</option>
+    </select>
+    
+    <input type="number" id="rateInput" step="0.01" placeholder="Or enter your rate ($/kWh)" value="" />
+    <div id="rateInfo"></div>
+  </div>
 </div>
 
       <div class="section">
         <h2>Add Device Usage</h2>
-        <input type="text" id="nameInput" placeholder="Device Name" />
-        <input type="number" id="wattsInput" placeholder="Watts Used" />
-        <input type="number" id="hoursInput" placeholder="Hours per Day" />
-        <select id="categorySelect">
-          <option value="">Select Category</option>
-          <option>Appliances</option>
-          <option>Personal Electronics</option>
-          <option>Heating & Cooling</option>
-          <option>Lighting</option>
-          <option>Kitchen & Cooking</option>
-          <option>Outdoor / Utility</option>
-          <option>Miscellaneous</option>
-        </select>
-        <button id="addButton">Add Appliance</button>
+        <div class="device-input-group">
+          <input type="text" id="nameInput" placeholder="Device Name" />
+          <input type="number" id="wattsInput" placeholder="Watts Used" />
+          <input type="number" id="hoursInput" placeholder="Hours per Day" />
+          <select id="categorySelect">
+            <option value="">Select Category</option>
+            <option>Appliances</option>
+            <option>Personal Electronics</option>
+            <option>Heating & Cooling</option>
+            <option>Lighting</option>
+            <option>Kitchen & Cooking</option>
+            <option>Outdoor / Utility</option>
+            <option>Miscellaneous</option>
+          </select>
+          <button id="addButton">Add Appliance</button>
+        </div>
       </div>
 
       <div class="section">
@@ -709,6 +808,17 @@ select:hover {
   </div>
 
 
+  <div class="login-popup" id="loginPopup">
+    <div class="login-popup-content">
+      <h3>Login Required</h3>
+      <p>Please log in to use this feature and save your data.</p>
+      <div class="login-popup-buttons">
+        <a href="/login" class="primary">Login</a>
+        <a href="#" class="secondary" onclick="closeLoginPopup()">Close</a>
+      </div>
+    </div>
+  </div>
+
   <script>
     const deviceList = [];
     const rateSelect = document.getElementById('rateSelect');
@@ -753,9 +863,29 @@ select:hover {
     }
 
     function calculateRate() {
-      let rateStr = rateSelect.value.split(' - ')[1];
-      let rate = rateStr ? parseFloat(rateStr) / 100 : parseFloat(rateInput.value);
-      return isNaN(rate) ? 0.1289 : rate;
+      const selectedRate = rateSelect.value;
+      const customRate = parseFloat(rateInput.value);
+      
+      if (selectedRate) {
+        rateInput.disabled = true;
+        rateInput.style.opacity = '0.5';
+        rateSelect.style.opacity = '1';
+        document.getElementById('rateInfo').textContent = 'Using state rate';
+        return parseFloat(selectedRate);
+      } else if (!isNaN(customRate) && customRate > 0) {
+        rateInput.disabled = false;
+        rateInput.style.opacity = '1';
+        rateSelect.style.opacity = '0.5';
+        document.getElementById('rateInfo').textContent = 'Using custom rate';
+        return customRate;
+      }
+      
+      // Default to US average if no rate is selected
+      rateInput.disabled = false;
+      rateInput.style.opacity = '1';
+      rateSelect.style.opacity = '1';
+      document.getElementById('rateInfo').textContent = 'Using default rate (US Average)';
+      return 0.1595;
     }
 
     function recalculateTotal() {
@@ -813,7 +943,9 @@ function editDevice(index) {
 
 
 
-addButton.addEventListener('click', async () => {
+addButton.addEventListener('click', async (e) => {
+  if (!checkLogin()) return;
+  
   const name     = nameInput.value.trim();
   const watts    = parseFloat(wattsInput.value);
   const hours    = parseFloat(hoursInput.value);
@@ -863,12 +995,22 @@ addButton.addEventListener('click', async () => {
 
 
     rateSelect.addEventListener('change', () => {
+      if (!checkLogin()) return;
+      
+      if (rateSelect.value) {
+        rateInput.value = '';
+      }
       showToast('Rate updated. Recalculating...');
       recalculateTotal();
       updatePieChart();
     });
 
     rateInput.addEventListener('input', () => {
+      if (!checkLogin()) return;
+      
+      if (rateInput.value) {
+        rateSelect.value = '';
+      }
       showToast('Rate updated. Recalculating...');
       recalculateTotal();
       updatePieChart();
@@ -1027,30 +1169,64 @@ window.addEventListener('load', async () => {
     const chatHistory = [];
     const initialInputHeight = messageInput.scrollHeight;
 
-    // Create a message element with optional classes
-    const createMessageElement = (content, ...classes) => {
-      const div = document.createElement("div");
-      div.classList.add("message", ...classes);
-      div.innerHTML = content;
-      return div;
-    };
+    // Function to get current app context
+    function getAppContext() {
+      const rate = calculateRate();
+      const totalCost = parseFloat(totalCostDisplay.textContent.replace('$', ''));
+      const deviceSummary = deviceList.map(device => ({
+        name: device.name,
+        category: device.category,
+        watts: device.watts,
+        hours: device.hours,
+        dailyCost: ((device.watts * device.hours / 1000) * rate).toFixed(3)
+      }));
+
+      return {
+        currentRate: rate,
+        totalDailyCost: totalCost,
+        devices: deviceSummary,
+        categories: Object.keys(deviceSummary.reduce((acc, device) => {
+          acc[device.category] = (acc[device.category] || 0) + parseFloat(device.dailyCost);
+          return acc;
+        }, {}))
+      };
+    }
 
     // Generate bot response by calling Google AI Gemini API
     const generateBotResponse = async (incomingMessageDiv) => {
       const messageElement = incomingMessageDiv.querySelector(".message-text");
+      const context = getAppContext();
+      
       // Add user message to chat history
       chatHistory.push({
         role: "user",
         parts: [{ text: userData.message }],
         ...(userData.file.data ? { file: userData.file } : {})
       });
+
+      // Add context to the prompt
+      const contextPrompt = `Current app context:
+- Electricity rate: $${context.currentRate}/kWh
+- Total daily cost: $${context.totalDailyCost}
+- Devices: ${JSON.stringify(context.devices)}
+- Categories with costs: ${JSON.stringify(context.categories)}
+
+Please use this context to provide relevant advice and information.`;
+
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: chatHistory,
+          contents: [
+            {
+              role: "system",
+              parts: [{ text: contextPrompt }]
+            },
+            ...chatHistory
+          ],
         }),
       };
+
       try {
         const response = await fetch(API_URL, requestOptions);
         const data = await response.json();
@@ -1168,6 +1344,21 @@ window.addEventListener('load', async () => {
     closeChatbot.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
     chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
 
+    function showLoginPopup() {
+      document.getElementById('loginPopup').classList.add('active');
+    }
+
+    function closeLoginPopup() {
+      document.getElementById('loginPopup').classList.remove('active');
+    }
+
+    function checkLogin() {
+      if (document.body.hasAttribute('data-requires-login')) {
+        showLoginPopup();
+        return false;
+      }
+      return true;
+    }
 
   </script>
  
@@ -1179,7 +1370,12 @@ window.addEventListener('load', async () => {
   function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 39.8283, lng: -98.5795 },
-      zoom: 4
+      zoom: 4,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_RIGHT
+      }
     });
     infoWindow = new google.maps.InfoWindow();
   }
@@ -1187,7 +1383,7 @@ window.addEventListener('load', async () => {
   rateSelect.addEventListener("change", () => {
     const text   = rateSelect.options[rateSelect.selectedIndex].text; 
     const region = text.split(" - ")[0];
-    const rate   = rateSelect.value;
+    const rate = rateSelect.value;
     updateMapRegion(region, rate);
   });
   
