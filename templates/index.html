@@ -215,7 +215,7 @@ select:hover {
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: #5350C4;
+      background: #0d95b9;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
     }
@@ -240,7 +240,7 @@ select:hover {
       bottom: 90px;
       right: 35px;
       width: 420px;
-      max-height: 80vh; /* Constrain height so it’s fully visible */
+      max-height: 80vh; /* Constrain height so it's fully visible */
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
@@ -269,7 +269,7 @@ select:hover {
       display: flex;
       align-items: center;
       padding: 15px 22px;
-      background: #5350C4;
+      background: #0d95b9;
       justify-content: space-between;
     }
     .chat-header .header-info {
@@ -280,7 +280,7 @@ select:hover {
     .chat-header .chatbot-logo {
       width: 35px;
       height: 35px;
-      fill: #5350C4;
+      fill: #0d95b9;
       background: #fff;
       padding: 6px;
       border-radius: 50%;
@@ -305,7 +305,7 @@ select:hover {
       transition: 0.2s ease;
     }
     .chat-header #close-chatbot:hover {
-      background: #3d39ac;
+      background: rgba(13, 149, 185, 0.2);
     }
 
     /* Chat Body */
@@ -342,7 +342,7 @@ select:hover {
 
     /* Bot & User Messages */
     .chat-body .bot-message .message-text {
-      background: #F2F2FF;
+      background: #e6f1f8;
       border-radius: 13px 13px 13px 3px;
     }
     .chat-body .user-message {
@@ -351,7 +351,7 @@ select:hover {
     }
     .chat-body .user-message .message-text {
       color: #fff;
-      background: #5350C4;
+      background: #0d95b9;
       border-radius: 13px 13px 3px 13px;
     }
     .chat-body .user-message .attachment {
@@ -371,7 +371,7 @@ select:hover {
       width: 7px;
       opacity: 0.7;
       border-radius: 50%;
-      background: #6F6BC2;
+      background: #0d95b9;
       animation: dotPulse 1.8s ease-in-out infinite;
     }
     .thinking-indicator .dot:nth-child(1) {
@@ -413,7 +413,7 @@ select:hover {
       transition: 0s ease, border-radius 0s;
     }
     .chat-form:focus-within {
-      outline: 2px solid #5350C4;
+      outline: 2px solid #0d95b9;
     }
     .message-input {
       width: 100%;
@@ -441,7 +441,7 @@ select:hover {
       width: 35px;
       border: none;
       cursor: pointer;
-      color: #706DB0;
+      color: #0d95b9;
       border-radius: 50%;
       font-size: 1.15rem;
       background: none;
@@ -449,13 +449,13 @@ select:hover {
     }
     .chat-controls button:hover,
     body.show-emoji-picker .chat-controls #emoji-picker {
-      color: #3d39ac;
-      background: #f1f1ff;
+      color: #0d95b9;
+      background: #e6f1f8;
     }
     #send-message {
       color: #fff;
       display: none;
-      background: #5350C4;
+      background: #0d95b9;
     }
     .message-input:valid ~ .chat-controls #send-message {
       display: block;
@@ -525,9 +525,281 @@ select:hover {
       }
     }
 
+    .login-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-popup.active {
+      display: flex;
+    }
+
+    .login-popup-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .login-popup h3 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    .login-popup p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-popup-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .login-popup-buttons a {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-popup-buttons .primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .login-popup-buttons .secondary {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .login-popup-buttons a:hover {
+      opacity: 0.9;
+    }
+
+    .rate-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .rate-input-group select,
+    .rate-input-group input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #rateInfo {
+      margin-top: 2px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    /* Add styles for device input group */
+    .device-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .device-input-group input,
+    .device-input-group select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Add styles for recommendations button */
+    .recommendations-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      width: fit-content;
+      font-size: 0.9rem;
+    }
+
+    .recommendations-btn:hover {
+      background: #0b7fa1;
+    }
+
+    .solar-calculator {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .solar-info {
+      text-align: center;
+    }
+
+    .solar-info p {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .savings-display {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .savings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .savings-label {
+      color: #666;
+      font-weight: 500;
+    }
+
+    .savings-value {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .solar-note {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 1rem;
+    }
+
+    .formula-explanation {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .formula-explanation h3 {
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .formula-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .formula-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .step-text {
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .formula-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .info-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      width: 24px;
+      height: 24px;
+    }
+
+    .info-btn:hover {
+      background-color: rgba(13, 149, 185, 0.1);
+      transform: scale(1.1);
+    }
+
+    .info-btn .material-symbols-rounded {
+      font-size: 1.2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .info-btn:hover {
+      background-color: rgba(13, 149, 185, 0.1);
+      transform: scale(1.1);
+    }
+
+    .info-btn .material-symbols-rounded {
+      font-size: 1.5rem;
+    }
+
   </style>
 </head>
-<body>
+<body {% if not user %}data-requires-login="true"{% endif %}>
   <header>
     <h1>VoltGuard</h1>
     <nav>
@@ -536,8 +808,6 @@ select:hover {
       {% else %}
         <a href="/login">Login</a>
       {% endif %}
-      <a href="#">Map</a>
-      <a href="#">Advice</a>
     </nav>    
   </header>
   <div class="container">
@@ -545,81 +815,86 @@ select:hover {
     <div>
 <div class="section">
   <h2>Select Electricity Rate</h2>
-  <label for="rateSelect">Choose Electricity Rate ($/kWh)</label>
-  <select id="rateSelect">
-    <option value="">-- Select a Standard Rate --</option>
-    <option value="0.1505">Alabama - $0.1505</option>
-    <option value="0.2474">Alaska - $0.2474</option>
-    <option value="0.1475">Arizona - $0.1475</option>
-    <option value="0.1125">Arkansas - $0.1125</option>
-    <option value="0.3022">California - $0.3022</option>
-    <option value="0.1501">Colorado - $0.1501</option>
-    <option value="0.3006">Connecticut - $0.3006</option>
-    <option value="0.1552">Delaware - $0.1552</option>
-    <option value="0.1443">Florida - $0.1443</option>
-    <option value="0.1352">Georgia - $0.1352</option>
-    <option value="0.4051">Hawaii - $0.4051</option>
-    <option value="0.1082">Idaho - $0.1082</option>
-    <option value="0.1581">Illinois - $0.1581</option>
-    <option value="0.1465">Indiana - $0.1465</option>
-    <option value="0.1205">Iowa - $0.1205</option>
-    <option value="0.1332">Kansas - $0.1332</option>
-    <option value="0.1260">Kentucky - $0.1260</option>
-    <option value="0.1100">Louisiana - $0.1100</option>
-    <option value="0.2613">Maine - $0.2613</option>
-    <option value="0.1826">Maryland - $0.1826</option>
-    <option value="0.3008">Massachusetts - $0.3008</option>
-    <option value="0.1850">Michigan - $0.1850</option>
-    <option value="0.1453">Minnesota - $0.1453</option>
-    <option value="0.1262">Mississippi - $0.1262</option>
-    <option value="0.1119">Missouri - $0.1119</option>
-    <option value="0.1141">Montana - $0.1141</option>
-    <option value="0.1056">Nebraska - $0.1056</option>
-    <option value="0.1392">Nevada - $0.1392</option>
-    <option value="0.2340">New Hampshire - $0.2340</option>
-    <option value="0.1968">New Jersey - $0.1968</option>
-    <option value="0.1373">New Mexico - $0.1373</option>
-    <option value="0.2531">New York - $0.2531</option>
-    <option value="0.1247">North Carolina - $0.1247</option>
-    <option value="0.0993">North Dakota - $0.0993</option>
-    <option value="0.1564">Ohio - $0.1564</option>
-    <option value="0.1102">Oklahoma - $0.1102</option>
-    <option value="0.1444">Oregon - $0.1444</option>
-    <option value="0.1758">Pennsylvania - $0.1758</option>
-    <option value="0.3166">Rhode Island - $0.3166</option>
-    <option value="0.1381">South Carolina - $0.1381</option>
-    <option value="0.1209">South Dakota - $0.1209</option>
-    <option value="0.1270">Tennessee - $0.1270</option>
-    <option value="0.1468">Texas - $0.1468</option>
-    <option value="0.1212">Utah - $0.1212</option>
-    <option value="0.2195">Vermont - $0.2195</option>
-    <option value="0.1404">Virginia - $0.1404</option>
-    <option value="0.1179">Washington - $0.1179</option>
-    <option value="0.1447">West Virginia - $0.1447</option>
-    <option value="0.1742">Wisconsin - $0.1742</option>
-    <option value="0.1169">Wyoming - $0.1169</option>
-    <option value="0.1595">United States (Average) - $0.1595</option>
-  </select>
-  
-  <input type="number" id="rateInput" step="0.01" placeholder="Or enter your rate ($/kWh)" value="" />
+  <div class="rate-input-group">
+    <label for="rateSelect">Choose Electricity Rate ($/kWh)</label>
+    <select id="rateSelect">
+      <option value="">-- Select a Standard Rate --</option>
+      <option value="0.1505">Alabama - $0.1505</option>
+      <option value="0.2474">Alaska - $0.2474</option>
+      <option value="0.1475">Arizona - $0.1475</option>
+      <option value="0.1125">Arkansas - $0.1125</option>
+      <option value="0.3022">California - $0.3022</option>
+      <option value="0.1501">Colorado - $0.1501</option>
+      <option value="0.3006">Connecticut - $0.3006</option>
+      <option value="0.1552">Delaware - $0.1552</option>
+      <option value="0.1443">Florida - $0.1443</option>
+      <option value="0.1352">Georgia - $0.1352</option>
+      <option value="0.4051">Hawaii - $0.4051</option>
+      <option value="0.1082">Idaho - $0.1082</option>
+      <option value="0.1581">Illinois - $0.1581</option>
+      <option value="0.1465">Indiana - $0.1465</option>
+      <option value="0.1205">Iowa - $0.1205</option>
+      <option value="0.1332">Kansas - $0.1332</option>
+      <option value="0.1260">Kentucky - $0.1260</option>
+      <option value="0.1100">Louisiana - $0.1100</option>
+      <option value="0.2613">Maine - $0.2613</option>
+      <option value="0.1826">Maryland - $0.1826</option>
+      <option value="0.3008">Massachusetts - $0.3008</option>
+      <option value="0.1850">Michigan - $0.1850</option>
+      <option value="0.1453">Minnesota - $0.1453</option>
+      <option value="0.1262">Mississippi - $0.1262</option>
+      <option value="0.1119">Missouri - $0.1119</option>
+      <option value="0.1141">Montana - $0.1141</option>
+      <option value="0.1056">Nebraska - $0.1056</option>
+      <option value="0.1392">Nevada - $0.1392</option>
+      <option value="0.2340">New Hampshire - $0.2340</option>
+      <option value="0.1968">New Jersey - $0.1968</option>
+      <option value="0.1373">New Mexico - $0.1373</option>
+      <option value="0.2531">New York - $0.2531</option>
+      <option value="0.1247">North Carolina - $0.1247</option>
+      <option value="0.0993">North Dakota - $0.0993</option>
+      <option value="0.1564">Ohio - $0.1564</option>
+      <option value="0.1102">Oklahoma - $0.1102</option>
+      <option value="0.1444">Oregon - $0.1444</option>
+      <option value="0.1758">Pennsylvania - $0.1758</option>
+      <option value="0.3166">Rhode Island - $0.3166</option>
+      <option value="0.1381">South Carolina - $0.1381</option>
+      <option value="0.1209">South Dakota - $0.1209</option>
+      <option value="0.1270">Tennessee - $0.1270</option>
+      <option value="0.1468">Texas - $0.1468</option>
+      <option value="0.1212">Utah - $0.1212</option>
+      <option value="0.2195">Vermont - $0.2195</option>
+      <option value="0.1404">Virginia - $0.1404</option>
+      <option value="0.1179">Washington - $0.1179</option>
+      <option value="0.1447">West Virginia - $0.1447</option>
+      <option value="0.1742">Wisconsin - $0.1742</option>
+      <option value="0.1169">Wyoming - $0.1169</option>
+      <option value="0.1595">United States (Average) - $0.1595</option>
+    </select>
+    
+    <input type="number" id="rateInput" step="0.01" placeholder="Or enter your rate ($/kWh)" value="" />
+    <div id="rateInfo"></div>
+  </div>
 </div>
 
       <div class="section">
         <h2>Add Device Usage</h2>
-        <input type="text" id="nameInput" placeholder="Device Name" />
-        <input type="number" id="wattsInput" placeholder="Watts Used" />
-        <input type="number" id="hoursInput" placeholder="Hours per Day" />
-        <select id="categorySelect">
-          <option value="">Select Category</option>
-          <option>Appliances</option>
-          <option>Personal Electronics</option>
-          <option>Heating & Cooling</option>
-          <option>Lighting</option>
-          <option>Kitchen & Cooking</option>
-          <option>Outdoor / Utility</option>
-          <option>Miscellaneous</option>
-        </select>
-        <button id="addButton">Add Appliance</button>
+        <div class="device-input-group">
+          <input type="text" id="nameInput" placeholder="Device Name" />
+          <input type="number" id="wattsInput" placeholder="Watts Used" />
+          <input type="number" id="hoursInput" placeholder="Hours per Day" />
+          <select id="categorySelect">
+            <option value="">Select Category</option>
+            <option>Appliances</option>
+            <option>Personal Electronics</option>
+            <option>Heating & Cooling</option>
+            <option>Lighting</option>
+            <option>Kitchen & Cooking</option>
+            <option>Outdoor / Utility</option>
+            <option>Miscellaneous</option>
+          </select>
+          <button id="addButton">Add Appliance</button>
+        </div>
       </div>
 
       <div class="section">
@@ -648,13 +923,63 @@ select:hover {
     <!-- RIGHT COLUMN -->
     <div>
       <div class="section">
-        <h2>Map (Placeholder)</h2>
+        <h2>Map</h2>
         <div id="map" class="map-container"></div>
       </div>
 
       <div class="section">
         <h2>Electricity Cost by Category</h2>
         <canvas id="categoryChart"></canvas>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2>Solar Savings Calculator</h2>
+          <button class="info-btn" onclick="toggleFormulaExplanation()">
+            <span class="material-symbols-rounded">info</span>
+          </button>
+        </div>
+        <div class="solar-calculator">
+          <div class="solar-info">
+            <p>Based on your current daily usage of <span id="dailyKWh">0</span> kWh, you could save:</p>
+            <div class="savings-display">
+              <div class="savings-item">
+                <span class="savings-label">Daily Savings:</span>
+                <span id="dailySavings" class="savings-value">$0.00</span>
+              </div>
+              <div class="savings-item">
+                <span class="savings-label">Monthly Savings:</span>
+                <span id="monthlySavings" class="savings-value">$0.00</span>
+              </div>
+              <div class="savings-item">
+                <span class="savings-label">Yearly Savings:</span>
+                <span id="yearlySavings" class="savings-value">$0.00</span>
+              </div>
+            </div>
+            <div class="formula-explanation" id="formulaSteps" style="display: none;">
+              <h3>How We Calculate Your Savings</h3>
+              <div class="formula-steps">
+                <div class="formula-step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">Daily kWh = Sum of (Device Watts × Hours Used ÷ 1000)</span>
+                </div>
+                <div class="formula-step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">Daily Savings = Daily kWh × Electricity Rate × 0.8</span>
+                </div>
+                <div class="formula-step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">Monthly Savings = Daily Savings × 30</span>
+                </div>
+                <div class="formula-step">
+                  <span class="step-number">4</span>
+                  <span class="step-text">Yearly Savings = Daily Savings × 365</span>
+                </div>
+              </div>
+            </div>
+            <p class="solar-note">* Estimates based on 80% solar efficiency and current electricity rates</p>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -686,9 +1011,10 @@ select:hover {
           <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"></path>
         </svg>
         <div class="message-text">
-          Hey there<br />How can I help you today?
+          Hey there! How can I help you today?
         </div>
       </div>
+      <button class="recommendations-btn" onclick="askForRecommendations()">Get Energy-Saving Recommendations</button>
     </div>
     <!-- Chatbot Footer -->
     <div class="chat-footer">
@@ -709,6 +1035,17 @@ select:hover {
   </div>
 
 
+  <div class="login-popup" id="loginPopup">
+    <div class="login-popup-content">
+      <h3>Login Required</h3>
+      <p>Please log in to use this feature and save your data.</p>
+      <div class="login-popup-buttons">
+        <a href="/login" class="primary">Login</a>
+        <a href="#" class="secondary" onclick="closeLoginPopup()">Close</a>
+      </div>
+    </div>
+  </div>
+
   <script>
     const deviceList = [];
     const rateSelect = document.getElementById('rateSelect');
@@ -724,9 +1061,26 @@ select:hover {
     let editIndex = -1;
 
     const predefinedDevices = {
-      'Laptop': { watts: 50, hours: 3 },
-      'Fridge': { watts: 150, hours: 24 },
-      'Microwave': { watts: 1000, hours: 1 }
+      'Laptop': { watts: 50, hours: 8, category: 'Personal Electronics' },
+      'Desktop Computer': { watts: 200, hours: 6, category: 'Personal Electronics' },
+      'Refrigerator': { watts: 150, hours: 24, category: 'Appliances' },
+      'Dishwasher': { watts: 1200, hours: 1, category: 'Kitchen & Cooking' },
+      'Washing Machine': { watts: 500, hours: 1, category: 'Appliances' },
+      'Dryer': { watts: 3000, hours: 1, category: 'Appliances' },
+      'Air Conditioner': { watts: 1500, hours: 8, category: 'Heating & Cooling' },
+      'Space Heater': { watts: 1500, hours: 4, category: 'Heating & Cooling' },
+      'LED Light Bulb': { watts: 9, hours: 6, category: 'Lighting' },
+      'TV (55" LED)': { watts: 100, hours: 4, category: 'Personal Electronics' },
+      'Microwave': { watts: 1000, hours: 0.5, category: 'Kitchen & Cooking' },
+      'Coffee Maker': { watts: 800, hours: 0.5, category: 'Kitchen & Cooking' },
+      'Electric Oven': { watts: 2400, hours: 1, category: 'Kitchen & Cooking' },
+      'Gaming Console': { watts: 150, hours: 3, category: 'Personal Electronics' },
+      'Router': { watts: 10, hours: 24, category: 'Personal Electronics' },
+      'Ceiling Fan': { watts: 60, hours: 8, category: 'Heating & Cooling' },
+      'Water Heater': { watts: 4000, hours: 2, category: 'Appliances' },
+      'Vacuum Cleaner': { watts: 700, hours: 0.5, category: 'Appliances' },
+      'Hair Dryer': { watts: 1500, hours: 0.25, category: 'Personal Electronics' },
+      'Electric Toothbrush': { watts: 2, hours: 0.1, category: 'Personal Electronics' }
     };
 
     nameInput.addEventListener('input', () => {
@@ -734,6 +1088,7 @@ select:hover {
       if (predefinedDevices[val]) {
         wattsInput.value = predefinedDevices[val].watts;
         hoursInput.value = predefinedDevices[val].hours;
+        categoryInput.value = predefinedDevices[val].category;
       }
     });
 
@@ -753,9 +1108,29 @@ select:hover {
     }
 
     function calculateRate() {
-      let rateStr = rateSelect.value.split(' - ')[1];
-      let rate = rateStr ? parseFloat(rateStr) / 100 : parseFloat(rateInput.value);
-      return isNaN(rate) ? 0.1289 : rate;
+      const selectedRate = rateSelect.value;
+      const customRate = parseFloat(rateInput.value);
+      
+      if (selectedRate) {
+        rateInput.disabled = true;
+        rateInput.style.opacity = '0.5';
+        rateSelect.style.opacity = '1';
+        document.getElementById('rateInfo').textContent = 'Using state rate';
+        return parseFloat(selectedRate);
+      } else if (!isNaN(customRate) && customRate > 0) {
+        rateInput.disabled = false;
+        rateInput.style.opacity = '1';
+        rateSelect.style.opacity = '0.5';
+        document.getElementById('rateInfo').textContent = 'Using custom rate';
+        return customRate;
+      }
+      
+      // Default to US average if no rate is selected
+      rateInput.disabled = false;
+      rateInput.style.opacity = '1';
+      rateSelect.style.opacity = '1';
+      document.getElementById('rateInfo').textContent = 'Using default rate (US Average)';
+      return 0.1595;
     }
 
     function recalculateTotal() {
@@ -787,6 +1162,7 @@ tr.innerHTML = `
       });
       recalculateTotal();
       updatePieChart();
+      updateSolarSavings();
     }
 
     async function removeDevice(index) {
@@ -813,7 +1189,9 @@ function editDevice(index) {
 
 
 
-addButton.addEventListener('click', async () => {
+addButton.addEventListener('click', async (e) => {
+  if (!checkLogin()) return;
+  
   const name     = nameInput.value.trim();
   const watts    = parseFloat(wattsInput.value);
   const hours    = parseFloat(hoursInput.value);
@@ -863,15 +1241,27 @@ addButton.addEventListener('click', async () => {
 
 
     rateSelect.addEventListener('change', () => {
+      if (!checkLogin()) return;
+      
+      if (rateSelect.value) {
+        rateInput.value = '';
+      }
       showToast('Rate updated. Recalculating...');
       recalculateTotal();
       updatePieChart();
+      updateSolarSavings();
     });
 
     rateInput.addEventListener('input', () => {
+      if (!checkLogin()) return;
+      
+      if (rateInput.value) {
+        rateSelect.value = '';
+      }
       showToast('Rate updated. Recalculating...');
       recalculateTotal();
       updatePieChart();
+      updateSolarSavings();
     });
 
 function updatePieChart() {
@@ -956,6 +1346,25 @@ function updatePieChart() {
     }]
   });
 }
+
+function updateSolarSavings() {
+  const dailyKWh = deviceList.reduce((total, device) => {
+    return total + (device.watts * device.hours / 1000);
+  }, 0);
+  
+  const rate = calculateRate();
+  const solarEfficiency = 0.8; // 80% efficiency
+  
+  const dailySavings = dailyKWh * rate * solarEfficiency;
+  const monthlySavings = dailySavings * 30;
+  const yearlySavings = dailySavings * 365;
+  
+  document.getElementById('dailyKWh').textContent = dailyKWh.toFixed(2);
+  document.getElementById('dailySavings').textContent = `$${dailySavings.toFixed(2)}`;
+  document.getElementById('monthlySavings').textContent = `$${monthlySavings.toFixed(2)}`;
+  document.getElementById('yearlySavings').textContent = `$${yearlySavings.toFixed(2)}`;
+}
+
 window.addEventListener('load', async () => {
   const r = await fetch('/api/rate');
   if (r.ok) {
@@ -1035,15 +1444,44 @@ window.addEventListener('load', async () => {
       return div;
     };
 
+    // Function to get device context
+    function getDeviceContext() {
+      const context = {
+        totalDevices: deviceList.length,
+        totalCost: parseFloat(totalCostDisplay.textContent.replace('$', '')),
+        devices: deviceList.map(device => ({
+          name: device.name,
+          category: device.category,
+          watts: device.watts,
+          hours: device.hours,
+          dailyCost: ((device.hours * device.watts / 1000) * calculateRate()).toFixed(3)
+        })),
+        currentRate: calculateRate()
+      };
+      return context;
+    }
+
     // Generate bot response by calling Google AI Gemini API
     const generateBotResponse = async (incomingMessageDiv) => {
       const messageElement = incomingMessageDiv.querySelector(".message-text");
+      const deviceContext = getDeviceContext();
+      
+      // Format the context as part of the user's message with concise bullet points
+      const contextMessage = `[Context: You are VoltBot, an energy usage assistant. Current setup:
+• Devices: ${deviceContext.totalDevices} total
+• Daily cost: $${deviceContext.totalCost}
+• Rate: $${deviceContext.currentRate}/kWh
+• Device details: ${JSON.stringify(deviceContext.devices, null, 2)}
+
+User question: ${userData.message}`;
+
       // Add user message to chat history
       chatHistory.push({
         role: "user",
-        parts: [{ text: userData.message }],
+        parts: [{ text: contextMessage }],
         ...(userData.file.data ? { file: userData.file } : {})
       });
+
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1051,6 +1489,7 @@ window.addEventListener('load', async () => {
           contents: chatHistory,
         }),
       };
+
       try {
         const response = await fetch(API_URL, requestOptions);
         const data = await response.json();
@@ -1072,6 +1511,43 @@ window.addEventListener('load', async () => {
       }
     };
 
+    // Function to handle recommendations button click
+    function askForRecommendations() {
+      const deviceContext = getDeviceContext();
+      const messageContent = `<div class="message-text"></div>`;
+      const outgoingMessageDiv = createMessageElement(messageContent, "user-message");
+      outgoingMessageDiv.querySelector(".message-text").innerText = "Give me energy-saving recommendations based on my current setup.";
+      chatBody.appendChild(outgoingMessageDiv);
+      chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+
+      setTimeout(() => {
+        const content = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
+            <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"/>
+          </svg>
+          <div class="message-text">
+            <div class="thinking-indicator">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>`;
+        const incomingMessageDiv = createMessageElement(content, "bot-message", "thinking");
+        chatBody.appendChild(incomingMessageDiv);
+        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+        
+        // Set the user data with context
+        userData.message = `[Context: You are VoltBot, an energy usage assistant. Current setup:
+• Devices: ${deviceContext.totalDevices} total
+• Daily cost: $${deviceContext.totalCost}
+• Rate: $${deviceContext.currentRate}/kWh
+• Device details: ${JSON.stringify(deviceContext.devices, null, 2)}
+
+User question: Give me energy-saving recommendations based on my current setup.`;
+        
+        generateBotResponse(incomingMessageDiv);
+      }, 600);
+    }
+
     // Handle sending outgoing messages
     const handleOutgoingMessage = (e) => {
       e.preventDefault();
@@ -1085,6 +1561,7 @@ window.addEventListener('load', async () => {
       outgoingMessageDiv.querySelector(".message-text").innerText = userData.message;
       chatBody.appendChild(outgoingMessageDiv);
       chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+
       setTimeout(() => {
         const content = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
             <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"/>
@@ -1168,6 +1645,26 @@ window.addEventListener('load', async () => {
     closeChatbot.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
     chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
 
+    function showLoginPopup() {
+      document.getElementById('loginPopup').classList.add('active');
+    }
+
+    function closeLoginPopup() {
+      document.getElementById('loginPopup').classList.remove('active');
+    }
+
+    function checkLogin() {
+      if (document.body.hasAttribute('data-requires-login')) {
+        showLoginPopup();
+        return false;
+      }
+      return true;
+    }
+
+    function toggleFormulaExplanation() {
+      const formulaSteps = document.getElementById('formulaSteps');
+      formulaSteps.style.display = formulaSteps.style.display === 'none' ? 'flex' : 'none';
+    }
 
   </script>
  
@@ -1179,7 +1676,12 @@ window.addEventListener('load', async () => {
   function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 39.8283, lng: -98.5795 },
-      zoom: 4
+      zoom: 4,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_RIGHT
+      }
     });
     infoWindow = new google.maps.InfoWindow();
   }
@@ -1187,7 +1689,7 @@ window.addEventListener('load', async () => {
   rateSelect.addEventListener("change", () => {
     const text   = rateSelect.options[rateSelect.selectedIndex].text; 
     const region = text.split(" - ")[0];
-    const rate   = rateSelect.value;
+    const rate = rateSelect.value;
     updateMapRegion(region, rate);
   });
   

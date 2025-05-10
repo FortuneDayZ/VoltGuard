@@ -1,4 +1,9 @@
-langchain
-langchain-groq
 python-dotenv
+flask
+authlib
+flask_sqlalchemy
+langchain
 langchain-community
+langchain-core
+langchain-groq
+psycopg2-binary

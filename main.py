@@ -1,53 +1,23 @@
 from dotenv import load_dotenv
 import os
-from langchain_groq import ChatGroq
-from langchain_core.output_parsers import StrOutputParser
-from langchain_community.document_loaders import TextLoader
 
 from flask import Flask, redirect, session, render_template, request, jsonify, url_for
 from authlib.integrations.flask_client import OAuth
 from flask_sqlalchemy import SQLAlchemy
 
-# ChatGroq setup
+# Flask App Setup
 load_dotenv()
-api_key: str  = os.getenv('key')
-model: str     = "deepseek-r1-distill-llama-70b"
-deepseek      = ChatGroq(api_key=api_key, model_name=model)
-
-parser         = StrOutputParser()
-deepseek_chain = deepseek | parser
-# result: str = deepseek_chain.invoke('what is a bot')
-# print(result)
-
-loader = TextLoader('data.txt', encoding='utf-8')
-data   = loader.load()
-# print(data)
-
-template = """
-You are AI-powered chatbot designed to provide 
-information and assistance for people
-based on the context provided to you only.    
-Don't in any way make things up.   
-Context:{context}
-Question:{question}
-"""
-question = 'What is pdf parsing'
-template = template.format(context=data, question=question)
-
-answer = deepseek_chain.invoke(template)
-print(answer)
-
-#  Flask, Auth0, DB Setup
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET')
 
+# Database Config
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
 db = SQLAlchemy(app)
 
-# Auth0 config
+# Auth0 Config
 app.config['AUTH0_CLIENT_ID']     = os.getenv('AUTH0_CLIENT_ID')
 app.config['AUTH0_CLIENT_SECRET'] = os.getenv('AUTH0_CLIENT_SECRET')
 app.config['AUTH0_DOMAIN']        = os.getenv('AUTH0_DOMAIN')
@@ -62,7 +32,7 @@ oauth.register(
     client_kwargs={'scope': 'openid profile email'}
 )
 
-# Database models 
+# Database Models
 class User(db.Model):
     __tablename__ = 'users'
     email   = db.Column(db.String, primary_key=True)
@@ -81,7 +51,7 @@ class Device(db.Model):
 with app.app_context():
     db.create_all()
 
-# Auth0 and session routes
+# Routes
 @app.route('/')
 def home():
     user = session.get('user')
@@ -101,7 +71,6 @@ def callback():
     profile = token.get('userinfo') or token
     session['user'] = profile
 
-    # ensure user exists locally
     usr = User.query.get(profile['email'])
     if not usr:
         usr = User(email=profile['email'])
