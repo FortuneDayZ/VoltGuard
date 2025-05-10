@@ -206,7 +206,7 @@ select:hover {
       position: fixed;
       bottom: 30px;
       right: 35px;
-      z-index: 9999;
+      z-index: 9999; /* Ensure toggler is on top */
       border: none;
       height: 50px;
       width: 50px;
@@ -215,7 +215,7 @@ select:hover {
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: var(--primary);
+      background: #0d95b9;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
     }
@@ -269,7 +269,7 @@ select:hover {
       display: flex;
       align-items: center;
       padding: 15px 22px;
-      background: var(--primary);
+      background: #0d95b9;
       justify-content: space-between;
     }
     .chat-header .header-info {
@@ -280,7 +280,7 @@ select:hover {
     .chat-header .chatbot-logo {
       width: 35px;
       height: 35px;
-      fill: var(--primary);
+      fill: #0d95b9;
       background: #fff;
       padding: 6px;
       border-radius: 50%;
@@ -305,7 +305,7 @@ select:hover {
       transition: 0.2s ease;
     }
     .chat-header #close-chatbot:hover {
-      background: #3d39ac;
+      background: rgba(13, 149, 185, 0.2);
     }
 
     /* Chat Body */
@@ -351,7 +351,7 @@ select:hover {
     }
     .chat-body .user-message .message-text {
       color: #fff;
-      background: var(--primary);
+      background: #0d95b9;
       border-radius: 13px 13px 3px 13px;
     }
     .chat-body .user-message .attachment {
@@ -371,7 +371,7 @@ select:hover {
       width: 7px;
       opacity: 0.7;
       border-radius: 50%;
-      background: var(--primary);
+      background: #0d95b9;
       animation: dotPulse 1.8s ease-in-out infinite;
     }
     .thinking-indicator .dot:nth-child(1) {
@@ -413,7 +413,7 @@ select:hover {
       transition: 0s ease, border-radius 0s;
     }
     .chat-form:focus-within {
-      outline: 2px solid var(--primary);
+      outline: 2px solid #0d95b9;
     }
     .message-input {
       width: 100%;
@@ -441,7 +441,7 @@ select:hover {
       width: 35px;
       border: none;
       cursor: pointer;
-      color: #706DB0;
+      color: #0d95b9;
       border-radius: 50%;
       font-size: 1.15rem;
       background: none;
@@ -449,13 +449,13 @@ select:hover {
     }
     .chat-controls button:hover,
     body.show-emoji-picker .chat-controls #emoji-picker {
-      color: var(--primary);
+      color: #0d95b9;
       background: #e6f1f8;
     }
     #send-message {
       color: #fff;
       display: none;
-      background: var(--primary);
+      background: #0d95b9;
     }
     .message-input:valid ~ .chat-controls #send-message {
       display: block;
@@ -621,6 +621,182 @@ select:hover {
       box-sizing: border-box;
     }
 
+    /* Add styles for recommendations button */
+    .recommendations-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      width: fit-content;
+      font-size: 0.9rem;
+    }
+
+    .recommendations-btn:hover {
+      background: #0b7fa1;
+    }
+
+    .solar-calculator {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .solar-info {
+      text-align: center;
+    }
+
+    .solar-info p {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .savings-display {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .savings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .savings-label {
+      color: #666;
+      font-weight: 500;
+    }
+
+    .savings-value {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .solar-note {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 1rem;
+    }
+
+    .formula-explanation {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .formula-explanation h3 {
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .formula-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .formula-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .step-text {
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .formula-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .info-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      width: 24px;
+      height: 24px;
+    }
+
+    .info-btn:hover {
+      background-color: rgba(13, 149, 185, 0.1);
+      transform: scale(1.1);
+    }
+
+    .info-btn .material-symbols-rounded {
+      font-size: 1.2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .info-btn:hover {
+      background-color: rgba(13, 149, 185, 0.1);
+      transform: scale(1.1);
+    }
+
+    .info-btn .material-symbols-rounded {
+      font-size: 1.5rem;
+    }
+
   </style>
 </head>
 <body {% if not user %}data-requires-login="true"{% endif %}>
@@ -756,6 +932,56 @@ select:hover {
         <canvas id="categoryChart"></canvas>
       </div>
 
+      <div class="section">
+        <div class="section-header">
+          <h2>Solar Savings Calculator</h2>
+          <button class="info-btn" onclick="toggleFormulaExplanation()">
+            <span class="material-symbols-rounded">info</span>
+          </button>
+        </div>
+        <div class="solar-calculator">
+          <div class="solar-info">
+            <p>Based on your current daily usage of <span id="dailyKWh">0</span> kWh, you could save:</p>
+            <div class="savings-display">
+              <div class="savings-item">
+                <span class="savings-label">Daily Savings:</span>
+                <span id="dailySavings" class="savings-value">$0.00</span>
+              </div>
+              <div class="savings-item">
+                <span class="savings-label">Monthly Savings:</span>
+                <span id="monthlySavings" class="savings-value">$0.00</span>
+              </div>
+              <div class="savings-item">
+                <span class="savings-label">Yearly Savings:</span>
+                <span id="yearlySavings" class="savings-value">$0.00</span>
+              </div>
+            </div>
+            <div class="formula-explanation" id="formulaSteps" style="display: none;">
+              <h3>How We Calculate Your Savings</h3>
+              <div class="formula-steps">
+                <div class="formula-step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">Daily kWh = Sum of (Device Watts × Hours Used ÷ 1000)</span>
+                </div>
+                <div class="formula-step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">Daily Savings = Daily kWh × Electricity Rate × 0.8</span>
+                </div>
+                <div class="formula-step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">Monthly Savings = Daily Savings × 30</span>
+                </div>
+                <div class="formula-step">
+                  <span class="step-number">4</span>
+                  <span class="step-text">Yearly Savings = Daily Savings × 365</span>
+                </div>
+              </div>
+            </div>
+            <p class="solar-note">* Estimates based on 80% solar efficiency and current electricity rates</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -785,9 +1011,10 @@ select:hover {
           <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"></path>
         </svg>
         <div class="message-text">
-          Hey there<br />How can I help you today?
+          Hey there! How can I help you today?
         </div>
       </div>
+      <button class="recommendations-btn" onclick="askForRecommendations()">Get Energy-Saving Recommendations</button>
     </div>
     <!-- Chatbot Footer -->
     <div class="chat-footer">
@@ -834,9 +1061,26 @@ select:hover {
     let editIndex = -1;
 
     const predefinedDevices = {
-      'Laptop': { watts: 50, hours: 3 },
-      'Fridge': { watts: 150, hours: 24 },
-      'Microwave': { watts: 1000, hours: 1 }
+      'Laptop': { watts: 50, hours: 8, category: 'Personal Electronics' },
+      'Desktop Computer': { watts: 200, hours: 6, category: 'Personal Electronics' },
+      'Refrigerator': { watts: 150, hours: 24, category: 'Appliances' },
+      'Dishwasher': { watts: 1200, hours: 1, category: 'Kitchen & Cooking' },
+      'Washing Machine': { watts: 500, hours: 1, category: 'Appliances' },
+      'Dryer': { watts: 3000, hours: 1, category: 'Appliances' },
+      'Air Conditioner': { watts: 1500, hours: 8, category: 'Heating & Cooling' },
+      'Space Heater': { watts: 1500, hours: 4, category: 'Heating & Cooling' },
+      'LED Light Bulb': { watts: 9, hours: 6, category: 'Lighting' },
+      'TV (55" LED)': { watts: 100, hours: 4, category: 'Personal Electronics' },
+      'Microwave': { watts: 1000, hours: 0.5, category: 'Kitchen & Cooking' },
+      'Coffee Maker': { watts: 800, hours: 0.5, category: 'Kitchen & Cooking' },
+      'Electric Oven': { watts: 2400, hours: 1, category: 'Kitchen & Cooking' },
+      'Gaming Console': { watts: 150, hours: 3, category: 'Personal Electronics' },
+      'Router': { watts: 10, hours: 24, category: 'Personal Electronics' },
+      'Ceiling Fan': { watts: 60, hours: 8, category: 'Heating & Cooling' },
+      'Water Heater': { watts: 4000, hours: 2, category: 'Appliances' },
+      'Vacuum Cleaner': { watts: 700, hours: 0.5, category: 'Appliances' },
+      'Hair Dryer': { watts: 1500, hours: 0.25, category: 'Personal Electronics' },
+      'Electric Toothbrush': { watts: 2, hours: 0.1, category: 'Personal Electronics' }
     };
 
     nameInput.addEventListener('input', () => {
@@ -844,6 +1088,7 @@ select:hover {
       if (predefinedDevices[val]) {
         wattsInput.value = predefinedDevices[val].watts;
         hoursInput.value = predefinedDevices[val].hours;
+        categoryInput.value = predefinedDevices[val].category;
       }
     });
 
@@ -917,6 +1162,7 @@ tr.innerHTML = `
       });
       recalculateTotal();
       updatePieChart();
+      updateSolarSavings();
     }
 
     async function removeDevice(index) {
@@ -1003,6 +1249,7 @@ addButton.addEventListener('click', async (e) => {
       showToast('Rate updated. Recalculating...');
       recalculateTotal();
       updatePieChart();
+      updateSolarSavings();
     });
 
     rateInput.addEventListener('input', () => {
@@ -1014,6 +1261,7 @@ addButton.addEventListener('click', async (e) => {
       showToast('Rate updated. Recalculating...');
       recalculateTotal();
       updatePieChart();
+      updateSolarSavings();
     });
 
 function updatePieChart() {
@@ -1098,6 +1346,25 @@ function updatePieChart() {
     }]
   });
 }
+
+function updateSolarSavings() {
+  const dailyKWh = deviceList.reduce((total, device) => {
+    return total + (device.watts * device.hours / 1000);
+  }, 0);
+  
+  const rate = calculateRate();
+  const solarEfficiency = 0.8; // 80% efficiency
+  
+  const dailySavings = dailyKWh * rate * solarEfficiency;
+  const monthlySavings = dailySavings * 30;
+  const yearlySavings = dailySavings * 365;
+  
+  document.getElementById('dailyKWh').textContent = dailyKWh.toFixed(2);
+  document.getElementById('dailySavings').textContent = `$${dailySavings.toFixed(2)}`;
+  document.getElementById('monthlySavings').textContent = `$${monthlySavings.toFixed(2)}`;
+  document.getElementById('yearlySavings').textContent = `$${yearlySavings.toFixed(2)}`;
+}
+
 window.addEventListener('load', async () => {
   const r = await fetch('/api/rate');
   if (r.ok) {
@@ -1169,61 +1436,57 @@ window.addEventListener('load', async () => {
     const chatHistory = [];
     const initialInputHeight = messageInput.scrollHeight;
 
-    // Function to get current app context
-    function getAppContext() {
-      const rate = calculateRate();
-      const totalCost = parseFloat(totalCostDisplay.textContent.replace('$', ''));
-      const deviceSummary = deviceList.map(device => ({
-        name: device.name,
-        category: device.category,
-        watts: device.watts,
-        hours: device.hours,
-        dailyCost: ((device.watts * device.hours / 1000) * rate).toFixed(3)
-      }));
+    // Create a message element with optional classes
+    const createMessageElement = (content, ...classes) => {
+      const div = document.createElement("div");
+      div.classList.add("message", ...classes);
+      div.innerHTML = content;
+      return div;
+    };
 
-      return {
-        currentRate: rate,
-        totalDailyCost: totalCost,
-        devices: deviceSummary,
-        categories: Object.keys(deviceSummary.reduce((acc, device) => {
-          acc[device.category] = (acc[device.category] || 0) + parseFloat(device.dailyCost);
-          return acc;
-        }, {}))
+    // Function to get device context
+    function getDeviceContext() {
+      const context = {
+        totalDevices: deviceList.length,
+        totalCost: parseFloat(totalCostDisplay.textContent.replace('$', '')),
+        devices: deviceList.map(device => ({
+          name: device.name,
+          category: device.category,
+          watts: device.watts,
+          hours: device.hours,
+          dailyCost: ((device.hours * device.watts / 1000) * calculateRate()).toFixed(3)
+        })),
+        currentRate: calculateRate()
       };
+      return context;
     }
 
     // Generate bot response by calling Google AI Gemini API
     const generateBotResponse = async (incomingMessageDiv) => {
       const messageElement = incomingMessageDiv.querySelector(".message-text");
-      const context = getAppContext();
+      const deviceContext = getDeviceContext();
       
+      // Format the context as part of the user's message with concise bullet points
+      const contextMessage = `[Context: You are VoltBot, an energy usage assistant. Current setup:
+• Devices: ${deviceContext.totalDevices} total
+• Daily cost: $${deviceContext.totalCost}
+• Rate: $${deviceContext.currentRate}/kWh
+• Device details: ${JSON.stringify(deviceContext.devices, null, 2)}
+
+User question: ${userData.message}`;
+
       // Add user message to chat history
       chatHistory.push({
         role: "user",
-        parts: [{ text: userData.message }],
+        parts: [{ text: contextMessage }],
         ...(userData.file.data ? { file: userData.file } : {})
       });
-
-      // Add context to the prompt
-      const contextPrompt = `Current app context:
-- Electricity rate: $${context.currentRate}/kWh
-- Total daily cost: $${context.totalDailyCost}
-- Devices: ${JSON.stringify(context.devices)}
-- Categories with costs: ${JSON.stringify(context.categories)}
-
-Please use this context to provide relevant advice and information.`;
 
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [
-            {
-              role: "system",
-              parts: [{ text: contextPrompt }]
-            },
-            ...chatHistory
-          ],
+          contents: chatHistory,
         }),
       };
 
@@ -1248,6 +1511,43 @@ Please use this context to provide relevant advice and information.`;
       }
     };
 
+    // Function to handle recommendations button click
+    function askForRecommendations() {
+      const deviceContext = getDeviceContext();
+      const messageContent = `<div class="message-text"></div>`;
+      const outgoingMessageDiv = createMessageElement(messageContent, "user-message");
+      outgoingMessageDiv.querySelector(".message-text").innerText = "Give me energy-saving recommendations based on my current setup.";
+      chatBody.appendChild(outgoingMessageDiv);
+      chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+
+      setTimeout(() => {
+        const content = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
+            <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"/>
+          </svg>
+          <div class="message-text">
+            <div class="thinking-indicator">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>`;
+        const incomingMessageDiv = createMessageElement(content, "bot-message", "thinking");
+        chatBody.appendChild(incomingMessageDiv);
+        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+        
+        // Set the user data with context
+        userData.message = `[Context: You are VoltBot, an energy usage assistant. Current setup:
+• Devices: ${deviceContext.totalDevices} total
+• Daily cost: $${deviceContext.totalCost}
+• Rate: $${deviceContext.currentRate}/kWh
+• Device details: ${JSON.stringify(deviceContext.devices, null, 2)}
+
+User question: Give me energy-saving recommendations based on my current setup.`;
+        
+        generateBotResponse(incomingMessageDiv);
+      }, 600);
+    }
+
     // Handle sending outgoing messages
     const handleOutgoingMessage = (e) => {
       e.preventDefault();
@@ -1261,6 +1561,7 @@ Please use this context to provide relevant advice and information.`;
       outgoingMessageDiv.querySelector(".message-text").innerText = userData.message;
       chatBody.appendChild(outgoingMessageDiv);
       chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+
       setTimeout(() => {
         const content = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
             <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"/>
@@ -1358,6 +1659,11 @@ Please use this context to provide relevant advice and information.`;
         return false;
       }
       return true;
+    }
+
+    function toggleFormulaExplanation() {
+      const formulaSteps = document.getElementById('formulaSteps');
+      formulaSteps.style.display = formulaSteps.style.display === 'none' ? 'flex' : 'none';
     }
 
   </script>
