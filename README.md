@@ -1,4 +1,4 @@
-https://github.com/FortuneDayZ/VoltGuard
+git clone https://github.com/FortuneDayZ/VoltGuard
 
 VoltGuard – CS 160 Project
 --------------------------
