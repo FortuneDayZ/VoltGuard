@@ -18,6 +18,35 @@
 
 ---
 
+## 🖼️ Screenshots
+
+### 1. Main Dashboard  
+Displays the main dashboard where users can input electricity rates, add appliances by category, view usage in a detailed table, and get solar savings estimates. The layout is split into sections for usability.
+
+<img src="https://github.com/FortuneDayZ/VoltGuard/blob/main/ScreenShots/MainPage1.png?raw=true" width="250" />
+
+### 2. Appliance Added Confirmation  
+Shows the updated appliance list after adding an item. Users can see usage metrics like kWh/day and cost, and have options to edit or remove entries.
+
+<img src="https://github.com/FortuneDayZ/VoltGuard/blob/main/ScreenShots/Added.png?raw=true" width="250" />
+
+### 3. Chatbot Interface (VoltBot)  
+The built-in assistant "VoltBot" can be toggled on demand. It provides personalized energy-saving tips based on current appliances, usage, and rates.
+
+<img src="https://github.com/FortuneDayZ/VoltGuard/blob/main/ScreenShots/ChatBot.png?raw=true" width="250" />
+
+### 4. Dashboard with Chatbot Active  
+Illustrates the dashboard while the chatbot is active. Users can chat with VoltBot while interacting with other features like rate selection or the appliance list.
+
+<img src="https://github.com/FortuneDayZ/VoltGuard/blob/main/ScreenShots/MainPageWithChatbot.png?raw=true" width="250" />
+
+### 5. Login Screen  
+Allows users to sign in via Google or with a username and password. The design is simple and clearly directs users into the main VoltGuard app.
+
+<img src="https://github.com/FortuneDayZ/VoltGuard/blob/main/ScreenShots/Login.png?raw=true" width="250" />
+
+---
+
 ## 🧰 Requirements
 
 - Python 3.x
