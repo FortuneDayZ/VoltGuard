@@ -1420,7 +1420,7 @@ window.addEventListener('load', async () => {
     const closeChatbot = document.querySelector("#close-chatbot");
 
     // API setup for Google AI Gemini
-    const API_KEY = "AIzaSyDFHTI9_rY_vzwX1mjRdo0hsvtz265Tkw8"; // Replace with your key
+    const API_KEY = "your-google-gemini-api-key"; // TODO, Chane API Key
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
     // User message and file data storage
@@ -1822,9 +1822,9 @@ User question: Give me energy-saving recommendations based on my current setup.`
 </script>
 
 
-<script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC06eHiZTAYQqwxNk8jehhcx2YmKlzwYvA&callback=initMap">
-</script>
+<!-- TODO: Replace with your real Google Maps API key and restrict it in Google Cloud Console -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"></script>
+
 
 
 
